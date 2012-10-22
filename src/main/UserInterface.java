@@ -130,7 +130,9 @@ public class UserInterface implements KeyListener, MouseListener {
 		addComponents();
 		centerFrame(frame);
 		frame.setBackground(GREEN);
-		np = new ThreePanelPicker(outputs[0], outputs[1], outputs[2]);
+		ThreePanelPicker temp = new ThreePanelPicker(outputs[0], outputs[1], outputs[2]);
+		np = temp;
+		FlashManager.setDisplayManager(temp);
 		frame.setVisible(true);
 	}
 
@@ -199,6 +201,7 @@ public class UserInterface implements KeyListener, MouseListener {
 		minimumValueInput.addKeyListener(this);
 		KeyListener minVerifier = new InputFilter(minimumValueInput);
 		minimumValueInput.addKeyListener(minVerifier);
+		minimumValueInput.addMouseListener(new FlashManager());
 		panel1.add(minimumValueInput);
 		panel.add(panel1);
 		JPanel panel2 = new JPanel();
@@ -214,6 +217,8 @@ public class UserInterface implements KeyListener, MouseListener {
 		maximumValueInput.setHorizontalAlignment(SwingConstants.CENTER);
 		maximumValueInput.setFont(INPUT_FONT);
 		maximumValueInput.addKeyListener(this);
+		maximumValueInput.addMouseListener(new FlashManager());
+		FlashManager.setActive(false);
 		KeyListener maxVerifier = new InputFilter(maximumValueInput);
 		maximumValueInput.addKeyListener(maxVerifier);
 		panel2.add(maximumValueInput);
@@ -296,6 +301,7 @@ public class UserInterface implements KeyListener, MouseListener {
 		getInputs();
 		if (getInputs() && verifyValidInputType() && verifyValidRange()
 				&& verifyValidValues()) {
+			FlashManager.setActive(false);
 			np.setValues(minimumValue, maximumValue);
 			np.run();
 		} else {
@@ -303,6 +309,7 @@ public class UserInterface implements KeyListener, MouseListener {
 			frame.repaint();
 			Toolkit.getDefaultToolkit().sync();
 		}
+		FlashManager.setActive(true);
 	}
 
 	/**
