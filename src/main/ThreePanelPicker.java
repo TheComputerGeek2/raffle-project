@@ -17,7 +17,7 @@ public class ThreePanelPicker implements Picker, ActionListener {
 	private JLabel out1;
 	private JLabel out2;
 	private JLabel out3;
-
+	
 	private String[] holders = {
 			Messages.getString("ThreePanelPicker.0"), Messages.getString("ThreePanelPicker.1") }; //$NON-NLS-1$ //$NON-NLS-2$
 

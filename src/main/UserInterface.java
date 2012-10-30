@@ -9,12 +9,14 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.HeadlessException;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.util.Scanner;
 
 import javax.swing.JApplet;
@@ -56,6 +58,8 @@ public class UserInterface implements KeyListener, MouseListener {
 	public static final Color GREEN = new Color(23, 172, 23); // original was 13
 																// 172 43
 
+	private JPanel[] imgPanels = new JPanel[3];
+
 	/**
 	 * The DimensionsProcessor used to determine what size to make the frame and
 	 * fonts.
@@ -94,6 +98,8 @@ public class UserInterface implements KeyListener, MouseListener {
 	/** The object that picks the numbers and displays them. */
 	private Picker np;
 
+	private ImageManager imgManager;
+
 	/**
 	 * Instantiates a new user interface of the raffle program.
 	 * 
@@ -101,8 +107,10 @@ public class UserInterface implements KeyListener, MouseListener {
 	 *             an exception thrown by the ThreePanelPicker. Or if a toolkit
 	 *             could not be found, or if one could not be accessed or
 	 *             instantiated.
+	 * @throws IOException
+	 * @throws HeadlessException
 	 */
-	public UserInterface() throws AWTException {
+	public UserInterface() throws AWTException, HeadlessException, IOException {
 		this(new JFrame());
 	}
 
@@ -115,25 +123,34 @@ public class UserInterface implements KeyListener, MouseListener {
 	 *             an exception thrown by the ThreePanelPicker. Or if a toolkit
 	 *             could not be found, or if one could not be accessed or
 	 *             instantiated.
+	 * @throws IOException
 	 */
-	public UserInterface(JFrame frame) throws AWTException {
+	public UserInterface(JFrame frame) throws AWTException, IOException {
 		makeFrame(frame);
 		init();
 	}
 
-	public UserInterface(JApplet applet) throws AWTException {
+	public UserInterface(JApplet applet) throws AWTException, IOException {
 		makeFrame(applet);
 		init();
 	}
 
-	private void init() throws AWTException {
+	private void init() throws AWTException, IOException {
 		addComponents();
+		loadImageManager(this);
+		this.imgManager.displayCenterImage();
 		centerFrame(frame);
 		frame.setBackground(GREEN);
-		ThreePanelPicker temp = new ThreePanelPicker(outputs[0], outputs[1], outputs[2]);
+		ThreePanelPicker temp = new ThreePanelPicker(outputs[0], outputs[1],
+				outputs[2]);
 		np = temp;
 		FlashManager.setDisplayManager(temp);
 		frame.setVisible(true);
+	}
+
+	private void loadImageManager(UserInterface userInterface) {
+		imgManager = new ImageManager(userInterface);
+
 	}
 
 	/**
@@ -233,14 +250,20 @@ public class UserInterface implements KeyListener, MouseListener {
 	 */
 	private JLabel[] addOutputs() {
 		for (int i = 0; i < 3; i++) {
+			this.imgPanels[i] = new JPanel();
+			frame.add(imgPanels[i]);
 			outputs[i] = new JLabel();
-			frame.add(outputs[i]);
+			imgPanels[i].add(outputs[i]);
 			outputs[i].setBackground(UserInterface.GOLD);
 			outputs[i].setHorizontalAlignment(SwingConstants.CENTER);
 			outputs[i].setFont(UserInterface.OUTPUT_FONT);
 			outputs[i].setOpaque(true);
 		}
 		return outputs;
+	}
+
+	public JPanel[] getImgPanels() {
+		return this.imgPanels;
 	}
 
 	/**
