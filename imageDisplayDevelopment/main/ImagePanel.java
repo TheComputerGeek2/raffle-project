@@ -28,11 +28,12 @@ public class ImagePanel {
 
 	private BufferedImage ticketImage;
 	
-	public static final String IMAGE_PATH = "/Raffle2/imageDisplayDevelopment/trollface.png";
+	public static final String IMAGE_PATH = "U:\\Workspace\\Raffle2\\imageDisplayDevelopment\\trollface.png";
 	
 	public ImagePanel(JPanel host) {
 		findFrame(host);
-		addListenerToHost();
+		loadImage();
+		//addListenerToHost();
 		colorPanel = new JPanel();
 		colorPanel.setOpaque(true);
 		imagePanel = new JPanel();
@@ -52,8 +53,8 @@ public class ImagePanel {
 	}
 	
 	private void stackPanels(JPanel host) {
-		host.add(colorPanel);
-		colorPanel.add(imagePanel);
+		host.add(imagePanel);
+		//colorPanel.add(imagePanel);
 	//	imagePanel.add(textPanel);
 	}
 
@@ -131,8 +132,8 @@ public class ImagePanel {
 		return this.imagePanel;
 	}
 
-	public void displayImage() {
-		g.drawImage(this.ticketImage, 0, 0, this.imagePanel);
+	public boolean displayImage() {
+		return g.drawImage(this.ticketImage, 0, 0, this.imagePanel);
 
 	}
 

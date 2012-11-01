@@ -12,6 +12,7 @@ public static void main(String[] args) {
 	frame.add(temp);
 	ImagePanel ip = new ImagePanel(temp);
 	frame.setVisible(true);
+	ip.loadGraphics();
 	ip.displayImage();
 	frame.repaint();
 }
