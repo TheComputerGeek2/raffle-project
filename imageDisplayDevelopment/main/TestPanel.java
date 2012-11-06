@@ -1,7 +1,9 @@
 package main;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 
@@ -30,17 +32,23 @@ public class TestPanel {
 		g.drawImage(ImageIO.read(new File(TestPanel.IMAGE_PATH)), 0, 0, p);
 		
 		p.setLayout(new OverlayLayout(p));
-		JPanel panel2 = new JPanel();
-		p.add(panel2);
-		panel2.setLayout(new OverlayLayout(panel2));
 		JLabel l = new JLabel();
 		l.setHorizontalAlignment(SwingConstants.CENTER);
-		panel2.add(l);
+		p.add(l);
+		//l.setLocation(getCenter(p, l));
 		l.setText("This is a test"); //$NON-NLS-1$
+		l.setAlignmentX((float) 0.5);
 		l.repaint();
 		g.drawImage(ImageIO.read(new File(TestPanel.IMAGE_PATH)), 0, 0, p);
 		l.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		l.paintImmediately(l.getBounds());
+	}
+	
+	public static Point getCenter(JPanel panel, JLabel child) {
+		Dimension size = panel.getSize();
+		int x = size.width/2 - child.getWidth()/2;
+		int y = size.height/2 - child.getHeight()/2;
+		return new Point(x,y);
 	}
 	
 }
