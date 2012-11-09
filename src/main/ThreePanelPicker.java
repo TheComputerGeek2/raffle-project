@@ -52,12 +52,12 @@ public class ThreePanelPicker implements Picker, ActionListener {
 	 */
 	public ThreePanelPicker(JLabel output1, JLabel output2, JLabel output3)
 			throws AWTException {
-		out1 = output1;
-		out2 = output2;
-		out3 = output3;
-		nc = new NumberCycle();
-		timer = new Timer(TIMER_DELAY, this);
-		c = new Curves();
+		this.out1 = output1;
+		this.out2 = output2;
+		this.out3 = output3;
+		this.nc = new NumberCycle();
+		this.timer = new Timer(this.TIMER_DELAY, this);
+		this.c = new Curves();
 	}
 
 	@Override
@@ -70,8 +70,9 @@ public class ThreePanelPicker implements Picker, ActionListener {
 	 * object for the next one.
 	 */
 	private void pushNextValue() {
-		pushValue(nc.getCurrent() + Messages.getString("ThreePanelPicker.2")); //$NON-NLS-1$
-		nc.shiftIndex();
+		pushValue(this.nc.getCurrent()
+				+ Messages.getString("ThreePanelPicker.2")); //$NON-NLS-1$
+		this.nc.shiftIndex();
 	}
 
 	/**
@@ -85,12 +86,12 @@ public class ThreePanelPicker implements Picker, ActionListener {
 	 *             accessed or instantiated.
 	 */
 	private void pushValue(String value) {
-		holders[1] = out2.getText();
-		out2.setText(holders[0]);
-		holders[0] = value;
-		out1.paintImmediately(out1.getParent().getBounds());
-		out2.paintImmediately(out2.getParent().getBounds());
-		out3.paintImmediately(out3.getParent().getBounds());
+		this.holders[1] = this.out2.getText();
+		this.out2.setText(this.holders[0]);
+		this.holders[0] = value;
+		this.out1.paintImmediately(this.out1.getParent().getBounds());
+		this.out2.paintImmediately(this.out2.getParent().getBounds());
+		this.out3.paintImmediately(this.out3.getParent().getBounds());
 		Toolkit.getDefaultToolkit().sync();
 	}
 
@@ -98,34 +99,34 @@ public class ThreePanelPicker implements Picker, ActionListener {
 	public void run() {
 		reset();
 		boolean temp = true;
-		c.getDelayMultapliers(NUMBERS);
+		this.c.getDelayMultapliers(this.NUMBERS);
 		while (temp) {
 			pushNextValue();
-			temp = c.useNextDelay();
+			temp = this.c.useNextDelay();
 		}
 		winning();
 	}
 
 	/** Starts the winning sequence. */
 	private void winning() {
-		out1.setText(Messages.getString("ThreePanelPicker.3")); //$NON-NLS-1$
-		out3.setText(Messages.getString("ThreePanelPicker.4")); //$NON-NLS-1$
-		timer.start();
+		this.out1.setText(Messages.getString("ThreePanelPicker.3")); //$NON-NLS-1$
+		this.out3.setText(Messages.getString("ThreePanelPicker.4")); //$NON-NLS-1$
+		this.timer.start();
 	}
 
 	/** Toggles the color of the top and bottom output JLabels. */
 	private void toggleColor() {
 		Color temp;
-		if (isGold) {
+		if (this.isGold) {
 			temp = UserInterface.GREEN;
 		} else {
 			temp = UserInterface.GOLD;
 		}
-		out1.setBackground(temp);
-		out3.setBackground(temp);
-		out1.paintImmediately(out1.getBounds());
-		out3.paintImmediately(out3.getBounds());
-		isGold = !isGold;
+		this.out1.setBackground(temp);
+		this.out3.setBackground(temp);
+		this.out1.paintImmediately(this.out1.getBounds());
+		this.out3.paintImmediately(this.out3.getBounds());
+		this.isGold = !this.isGold;
 	}
 
 	/**
@@ -138,19 +139,19 @@ public class ThreePanelPicker implements Picker, ActionListener {
 	@Override
 	public void reset() {
 		stopFlashing();
-		out1.setText(Messages.getString("ThreePanelPicker.5")); //$NON-NLS-1$
-		out2.setText(Messages.getString("ThreePanelPicker.6")); //$NON-NLS-1$
-		out3.setText(Messages.getString("ThreePanelPicker.7")); //$NON-NLS-1$
-		out1.paintImmediately(out1.getBounds());
-		out2.paintImmediately(out2.getBounds());
-		out3.paintImmediately(out3.getBounds());
+		this.out1.setText(Messages.getString("ThreePanelPicker.5")); //$NON-NLS-1$
+		this.out2.setText(Messages.getString("ThreePanelPicker.6")); //$NON-NLS-1$
+		this.out3.setText(Messages.getString("ThreePanelPicker.7")); //$NON-NLS-1$
+		this.out1.paintImmediately(this.out1.getBounds());
+		this.out2.paintImmediately(this.out2.getBounds());
+		this.out3.paintImmediately(this.out3.getBounds());
 		Toolkit.getDefaultToolkit().sync();
 	}
 
 	/** Stops the flashing of the display. */
 	public void stopFlashing() {
-		timer.stop();
-		if (!isGold) {
+		this.timer.stop();
+		if (!this.isGold) {
 			toggleColor();
 		}
 	}
@@ -158,12 +159,12 @@ public class ThreePanelPicker implements Picker, ActionListener {
 	@Override
 	public void inputProblem() {
 		reset();
-		out1.setText(Messages.getString("ThreePanelPicker.8")); //$NON-NLS-1$
-		out2.setText(Messages.getString("ThreePanelPicker.9")); //$NON-NLS-1$
-		out3.setText(Messages.getString("ThreePanelPicker.10")); //$NON-NLS-1$
-		out1.paintImmediately(out1.getBounds());
-		out2.paintImmediately(out2.getBounds());
-		out3.paintImmediately(out3.getBounds());
+		this.out1.setText(Messages.getString("ThreePanelPicker.8")); //$NON-NLS-1$
+		this.out2.setText(Messages.getString("ThreePanelPicker.9")); //$NON-NLS-1$
+		this.out3.setText(Messages.getString("ThreePanelPicker.10")); //$NON-NLS-1$
+		this.out1.paintImmediately(this.out1.getBounds());
+		this.out2.paintImmediately(this.out2.getBounds());
+		this.out3.paintImmediately(this.out3.getBounds());
 		Toolkit.getDefaultToolkit().beep();
 	}
 

@@ -61,7 +61,7 @@ public class UserInterface implements KeyListener, MouseListener {
 	 * fonts.
 	 */
 	public static final DimensionsProcessor dp = new DimensionsProcessor(
-			BASE_WIDTH, BASE_HEIGHT);
+			UserInterface.BASE_WIDTH, UserInterface.BASE_HEIGHT);
 
 	/** The JTextField that accepts the minimum output value. */
 	private JTextField minimumValueInput;
@@ -85,11 +85,11 @@ public class UserInterface implements KeyListener, MouseListener {
 
 	/** The font for the input components. */
 	protected static final Font INPUT_FONT = new Font(Font.SANS_SERIF,
-			Font.BOLD, dp.scaleValue(24));
+			Font.BOLD, UserInterface.dp.scaleValue(24));
 
 	/** The font used for the output label. */
 	protected static final Font OUTPUT_FONT = new Font(Font.SANS_SERIF,
-			Font.BOLD, dp.scaleValue(50));
+			Font.BOLD, UserInterface.dp.scaleValue(50));
 
 	/** The object that picks the numbers and displays them. */
 	private Picker np;
@@ -128,12 +128,13 @@ public class UserInterface implements KeyListener, MouseListener {
 
 	private void init() throws AWTException {
 		addComponents();
-		centerFrame(frame);
-		frame.setBackground(GREEN);
-		ThreePanelPicker temp = new ThreePanelPicker(outputs[0], outputs[1], outputs[2]);
-		np = temp;
+		centerFrame(this.frame);
+		this.frame.setBackground(UserInterface.GREEN);
+		ThreePanelPicker temp = new ThreePanelPicker(this.outputs[0],
+				this.outputs[1], this.outputs[2]);
+		this.np = temp;
 		FlashManager.setDisplayManager(temp);
-		frame.setVisible(true);
+		this.frame.setVisible(true);
 	}
 
 	/**
@@ -160,16 +161,17 @@ public class UserInterface implements KeyListener, MouseListener {
 	 * @return the frame of the object.
 	 */
 	private Container makeFrame(Container frame) {
-		frame.setSize(new Dimension(dp.scaleValue(BASE_WIDTH), dp
-				.scaleValue(BASE_HEIGHT)));
+		frame.setSize(new Dimension(UserInterface.dp
+				.scaleValue(UserInterface.BASE_WIDTH), dp
+				.scaleValue(UserInterface.BASE_HEIGHT)));
 		if (frame instanceof JFrame) {
 			((JFrame) frame).setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		}
 		frame.setLayout(new GridLayout(5, 1));
 		if (frame instanceof JFrame) {
-			((JFrame) frame).setTitle(TITLE);
+			((JFrame) frame).setTitle(UserInterface.TITLE);
 		} else if (frame instanceof JApplet) {
-			((JApplet) frame).setName(TITLE);
+			((JApplet) frame).setName(UserInterface.TITLE);
 		}
 		this.frame = frame;
 		return frame;
@@ -190,40 +192,40 @@ public class UserInterface implements KeyListener, MouseListener {
 		panel1.setLayout(new GridLayout(1, 2));
 		JLabel label1 = new JLabel();
 		label1.setHorizontalAlignment(SwingConstants.CENTER);
-		label1.setFont(INPUT_FONT);
+		label1.setFont(UserInterface.INPUT_FONT);
 		label1.setText(Messages.getString("UserInterface.1")); //$NON-NLS-1$
 		label1.setOpaque(true);
-		label1.setBackground(GREEN);
+		label1.setBackground(UserInterface.GREEN);
 		panel1.add(label1);
-		minimumValueInput = new JTextField();
-		minimumValueInput.setHorizontalAlignment(SwingConstants.CENTER);
-		minimumValueInput.setFont(INPUT_FONT);
-		minimumValueInput.addKeyListener(this);
-		KeyListener minVerifier = new InputFilter(minimumValueInput);
-		minimumValueInput.addKeyListener(minVerifier);
-		minimumValueInput.addMouseListener(new FlashManager());
-		panel1.add(minimumValueInput);
+		this.minimumValueInput = new JTextField();
+		this.minimumValueInput.setHorizontalAlignment(SwingConstants.CENTER);
+		this.minimumValueInput.setFont(UserInterface.INPUT_FONT);
+		this.minimumValueInput.addKeyListener(this);
+		KeyListener minVerifier = new InputFilter(this.minimumValueInput);
+		this.minimumValueInput.addKeyListener(minVerifier);
+		this.minimumValueInput.addMouseListener(new FlashManager());
+		panel1.add(this.minimumValueInput);
 		panel.add(panel1);
 		JPanel panel2 = new JPanel();
 		panel2.setLayout(new GridLayout(1, 2));
 		JLabel label2 = new JLabel();
 		label2.setHorizontalAlignment(SwingConstants.CENTER);
-		label2.setFont(INPUT_FONT);
+		label2.setFont(UserInterface.INPUT_FONT);
 		label2.setText(Messages.getString("UserInterface.2")); //$NON-NLS-1$
 		label2.setOpaque(true);
-		label2.setBackground(GREEN);
+		label2.setBackground(UserInterface.GREEN);
 		panel2.add(label2);
-		maximumValueInput = new JTextField();
-		maximumValueInput.setHorizontalAlignment(SwingConstants.CENTER);
-		maximumValueInput.setFont(INPUT_FONT);
-		maximumValueInput.addKeyListener(this);
-		maximumValueInput.addMouseListener(new FlashManager());
+		this.maximumValueInput = new JTextField();
+		this.maximumValueInput.setHorizontalAlignment(SwingConstants.CENTER);
+		this.maximumValueInput.setFont(UserInterface.INPUT_FONT);
+		this.maximumValueInput.addKeyListener(this);
+		this.maximumValueInput.addMouseListener(new FlashManager());
 		FlashManager.setActive(false);
-		KeyListener maxVerifier = new InputFilter(maximumValueInput);
-		maximumValueInput.addKeyListener(maxVerifier);
-		panel2.add(maximumValueInput);
+		KeyListener maxVerifier = new InputFilter(this.maximumValueInput);
+		this.maximumValueInput.addKeyListener(maxVerifier);
+		panel2.add(this.maximumValueInput);
 		panel.add(panel2);
-		frame.add(panel);
+		this.frame.add(panel);
 	}
 
 	/**
@@ -233,14 +235,14 @@ public class UserInterface implements KeyListener, MouseListener {
 	 */
 	private JLabel[] addOutputs() {
 		for (int i = 0; i < 3; i++) {
-			outputs[i] = new JLabel();
-			frame.add(outputs[i]);
-			outputs[i].setBackground(UserInterface.GOLD);
-			outputs[i].setHorizontalAlignment(SwingConstants.CENTER);
-			outputs[i].setFont(UserInterface.OUTPUT_FONT);
-			outputs[i].setOpaque(true);
+			this.outputs[i] = new ImagePanel();
+			this.frame.add(this.outputs[i]);
+			this.outputs[i].setBackground(UserInterface.GOLD);
+			this.outputs[i].setHorizontalAlignment(SwingConstants.CENTER);
+			this.outputs[i].setFont(UserInterface.OUTPUT_FONT);
+			this.outputs[i].setOpaque(true);
 		}
-		return outputs;
+		return this.outputs;
 	}
 
 	/**
@@ -249,13 +251,13 @@ public class UserInterface implements KeyListener, MouseListener {
 	 * @return the button.
 	 */
 	private JButton addButton() {
-		pickNumber = new JButton();
-		pickNumber.addKeyListener(this);
-		pickNumber.addMouseListener(this);
-		pickNumber.setFont(INPUT_FONT);
-		pickNumber.setText(Messages.getString("UserInterface.3")); //$NON-NLS-1$
-		frame.add(pickNumber);
-		return pickNumber;
+		this.pickNumber = new JButton();
+		this.pickNumber.addKeyListener(this);
+		this.pickNumber.addMouseListener(this);
+		this.pickNumber.setFont(INPUT_FONT);
+		this.pickNumber.setText(Messages.getString("UserInterface.3")); //$NON-NLS-1$
+		this.frame.add(this.pickNumber);
+		return this.pickNumber;
 	}
 
 	/**
@@ -265,12 +267,12 @@ public class UserInterface implements KeyListener, MouseListener {
 	 *            the source of the event.
 	 */
 	private void response(Object arg0, Integer keyCode) {
-		if (arg0.equals(pickNumber)) {
-			if (EventFilter.buttonEventFilter(keyCode)) {
+		if (arg0.equals(this.pickNumber)) {
+			if (main.EventFilter.buttonEventFilter(keyCode)) {
 				pickingSequence();
 			}
-		} else if (KeyEvent.getKeyText(keyCode).equalsIgnoreCase(
-				Messages.getString("UserInterface.4"))) { //$NON-NLS-1$
+		} else if (java.awt.event.KeyEvent.getKeyText(keyCode)
+				.equalsIgnoreCase(Messages.getString("UserInterface.4"))) { //$NON-NLS-1$
 			shiftFocus(arg0);
 		}
 	}
@@ -282,10 +284,10 @@ public class UserInterface implements KeyListener, MouseListener {
 	 *            the source of the event that triggered the response method.
 	 */
 	private void shiftFocus(Object arg0) {
-		if (arg0.equals(minimumValueInput)) {
-			maximumValueInput.grabFocus();
-		} else if (arg0.equals(maximumValueInput)) {
-			pickNumber.grabFocus();
+		if (arg0.equals(this.minimumValueInput)) {
+			this.maximumValueInput.grabFocus();
+		} else if (arg0.equals(this.maximumValueInput)) {
+			this.pickNumber.grabFocus();
 			pickingSequence();
 		}
 	}
@@ -302,12 +304,12 @@ public class UserInterface implements KeyListener, MouseListener {
 		if (getInputs() && verifyValidInputType() && verifyValidRange()
 				&& verifyValidValues()) {
 			FlashManager.setActive(false);
-			np.setValues(minimumValue, maximumValue);
-			np.run();
+			this.np.setValues(this.minimumValue, this.maximumValue);
+			this.np.run();
 		} else {
-			np.inputProblem();
-			frame.repaint();
-			Toolkit.getDefaultToolkit().sync();
+			this.np.inputProblem();
+			this.frame.repaint();
+			java.awt.Toolkit.getDefaultToolkit().sync();
 		}
 		FlashManager.setActive(true);
 	}
@@ -336,19 +338,19 @@ public class UserInterface implements KeyListener, MouseListener {
 	 * @return if the inputs are valid.
 	 */
 	private boolean getInputs() {
-		Scanner scanner1 = new Scanner(minimumValueInput.getText());
+		Scanner scanner1 = new Scanner(this.minimumValueInput.getText());
 		if (!scanner1.hasNextInt()) {
 			scanner1.close();
 			return false;
 		}
-		minimumValue = scanner1.nextInt();
+		this.minimumValue = scanner1.nextInt();
 		scanner1.close();
-		Scanner scanner2 = new Scanner(maximumValueInput.getText());
+		Scanner scanner2 = new Scanner(this.maximumValueInput.getText());
 		if (!scanner2.hasNextInt()) {
 			scanner2.close();
 			return false;
 		}
-		maximumValue = scanner2.nextInt();
+		this.maximumValue = scanner2.nextInt();
 		scanner2.close();
 		return true;
 	}
@@ -359,8 +361,8 @@ public class UserInterface implements KeyListener, MouseListener {
 	 * @return if the proper input type has been provided.
 	 */
 	private boolean verifyValidInputType() {
-		Scanner scanner1 = new Scanner(minimumValueInput.getText());
-		Scanner scanner2 = new Scanner(maximumValueInput.getText());
+		Scanner scanner1 = new Scanner(this.minimumValueInput.getText());
+		Scanner scanner2 = new Scanner(this.maximumValueInput.getText());
 		if (scanner1.hasNextInt() && scanner2.hasNextInt()) {
 			if (scanner1.nextLong() > Integer.MAX_VALUE
 					|| scanner2.nextLong() > Integer.MAX_VALUE) {
@@ -385,8 +387,8 @@ public class UserInterface implements KeyListener, MouseListener {
 	 *             if the inputs does not contain a parsable long.
 	 */
 	private boolean verifyValidValues() {
-		long minInput = Long.parseLong(minimumValueInput.getText());
-		long maxInput = Long.parseLong(maximumValueInput.getText());
+		long minInput = Long.parseLong(this.minimumValueInput.getText());
+		long maxInput = Long.parseLong(this.maximumValueInput.getText());
 		if (minInput > Integer.MAX_VALUE || maxInput > Integer.MAX_VALUE) {
 			return false;
 		}
@@ -399,7 +401,7 @@ public class UserInterface implements KeyListener, MouseListener {
 	 * @return if the range provided is valid.
 	 */
 	private boolean verifyValidRange() {
-		if (minimumValue <= maximumValue && minimumValue >= 0) {
+		if (this.minimumValue <= this.maximumValue && this.minimumValue >= 0) {
 			return true;
 		}
 		return false;
