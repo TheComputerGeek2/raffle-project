@@ -37,7 +37,7 @@ public class ImagePanel extends JLabel {
 		loadImage();
 		this.p = new JPanel();
 		updateGraphics();
-		this.p.setLayout(new OverlayLayout(p));
+		this.p.setLayout(new OverlayLayout(this.p));
 		this.p.add(this);
 		this.setAlignmentX((float) 0.5);
 	}

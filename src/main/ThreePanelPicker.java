@@ -62,7 +62,7 @@ public class ThreePanelPicker implements Picker, ActionListener {
 
 	@Override
 	public void setValues(int minimum, int maximum) {
-		nc.setRange(minimum, maximum);
+		this.nc.setRange(minimum, maximum);
 	}
 
 	/**
@@ -98,6 +98,9 @@ public class ThreePanelPicker implements Picker, ActionListener {
 	@Override
 	public void run() {
 		reset();
+		if (this.out2 instanceof ImagePanel) {
+			((ImagePanel) out2).setImageDisplayed(true);
+		}
 		boolean temp = true;
 		this.c.getDelayMultapliers(this.NUMBERS);
 		while (temp) {

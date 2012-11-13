@@ -27,15 +27,15 @@ public class InputFilter implements KeyListener {
 
 	public InputFilter(JTextField source) {
 		this.source = source;
-		currentSystem = NumberSystem.DECIMAL;
+		this.currentSystem = NumberSystem.DECIMAL;
 	}
 
 	public String getValidInputs() {
-		return VALID_DECIMAL_INPUTS;
+		return InputFilter.VALID_DECIMAL_INPUTS;
 	}
 
 	public int getMaxInputLength() {
-		return MAX_INPUT_LENGTH;
+		return InputFilter.MAX_INPUT_LENGTH;
 	}
 
 	/**
@@ -45,8 +45,9 @@ public class InputFilter implements KeyListener {
 	 *            the key event to respond to.
 	 */
 	private void response(KeyEvent arg0) {
-		enforceValidInputCharacters(source.getText(), VALID_DECIMAL_INPUTS);
-		enforceLength(source.getText(), MAX_INPUT_LENGTH);
+		enforceValidInputCharacters(this.source.getText(),
+				InputFilter.VALID_DECIMAL_INPUTS);
+		enforceLength(this.source.getText(), InputFilter.MAX_INPUT_LENGTH);
 	}
 
 	/**
@@ -64,8 +65,8 @@ public class InputFilter implements KeyListener {
 		for (int i = 0; i < input.length(); i++) {
 			if (!checkCharacter(
 					input.charAt(i) + Messages.getString("InputFilter.2"), validInputs)) { //$NON-NLS-1$
-				source.setText(input.substring(0, i));
-				source.paintImmediately(source.getBounds());
+				this.source.setText(input.substring(0, i));
+				this.source.paintImmediately(this.source.getBounds());
 				InputFilter.beep();
 				return;
 			}
@@ -85,8 +86,8 @@ public class InputFilter implements KeyListener {
 	 */
 	private void enforceLength(String input, int maxLength) {
 		if (input.length() > maxLength) {
-			source.setText(input.substring(0, maxLength));
-			source.paintImmediately(source.getBounds());
+			this.source.setText(input.substring(0, maxLength));
+			this.source.paintImmediately(this.source.getBounds());
 			InputFilter.beep();
 		}
 	}
@@ -133,6 +134,6 @@ public class InputFilter implements KeyListener {
 	}
 
 	@Override
-	public void keyTyped(KeyEvent arg0) {
+	public void keyTyped(KeyEvent arg0) { /* Required by the KeyListener interface */
 	}
 }

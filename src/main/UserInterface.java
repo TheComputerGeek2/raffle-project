@@ -162,7 +162,7 @@ public class UserInterface implements KeyListener, MouseListener {
 	 */
 	private Container makeFrame(Container frame) {
 		frame.setSize(new Dimension(UserInterface.dp
-				.scaleValue(UserInterface.BASE_WIDTH), dp
+				.scaleValue(UserInterface.BASE_WIDTH), UserInterface.dp
 				.scaleValue(UserInterface.BASE_HEIGHT)));
 		if (frame instanceof JFrame) {
 			((JFrame) frame).setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

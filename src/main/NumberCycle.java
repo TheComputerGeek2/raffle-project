@@ -12,8 +12,8 @@ public class NumberCycle {
 
 	public NumberCycle() {
 		rand = new Random();
-		numbers = new ArrayList<Integer>();
-		currentIndex = 0;
+		NumberCycle.numbers = new ArrayList<Integer>();
+		NumberCycle.currentIndex = 0;
 	}
 
 	/**
@@ -25,12 +25,12 @@ public class NumberCycle {
 	 *            the maximum value.
 	 */
 	public void setRange(int minimum, int maximum) {
-		numbers.clear();
+		NumberCycle.numbers.clear();
 		for (int i = minimum; i <= maximum; i++) {
-			numbers.add(i);
+			NumberCycle.numbers.add(i);
 		}
-		currentIndex = 0;
-		numbers.trimToSize();
+		NumberCycle.currentIndex = 0;
+		NumberCycle.numbers.trimToSize();
 	}
 
 	/**
@@ -39,11 +39,11 @@ public class NumberCycle {
 	 * @return the current value attached to the index.
 	 */
 	public int getCurrent() {
-		return numbers.get(currentIndex);
+		return NumberCycle.numbers.get(NumberCycle.currentIndex);
 	}
 
 	/** Shifts the index by one. */
 	public void shiftIndex() {
-		currentIndex = rand.nextInt(numbers.size());
+		NumberCycle.currentIndex = this.rand.nextInt(NumberCycle.numbers.size());
 	}
 }

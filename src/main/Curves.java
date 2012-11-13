@@ -18,9 +18,9 @@ public class Curves {
 	private Robot robot;
 
 	public Curves() throws AWTException {
-		delays = new ArrayList<Double>();
-		index = 0;
-		robot = new Robot();
+		this.delays = new ArrayList<Double>();
+		this.index = 0;
+		this.robot = new Robot();
 	}
 
 	public static double getAcceleratingCurveValue(double value) {
@@ -32,7 +32,7 @@ public class Curves {
 	}
 
 	public static double getPointOnCombinedCurves(double value) {
-		if (value < SLOWDOWN_STARTING_POINT) {
+		if (value < Curves.SLOWDOWN_STARTING_POINT) {
 			return getAcceleratingCurveValue(value);
 		}
 		return getDeceleratingCurveValue(value);
@@ -51,10 +51,11 @@ public class Curves {
 
 	public static double[] getFullPointSet(int acceleratingPoints,
 			int deceleratingPoints) {
-		double[] accelerating = getPoints(ACCELERATION_STARTING_POINT + CUTOFF,
-				SLOWDOWN_STARTING_POINT, acceleratingPoints);
-		double[] decelerating = getPoints(SLOWDOWN_STARTING_POINT,
-				ENDING_POINT, deceleratingPoints);
+		double[] accelerating = getPoints(Curves.ACCELERATION_STARTING_POINT
+				+ Curves.CUTOFF, Curves.SLOWDOWN_STARTING_POINT,
+				acceleratingPoints);
+		double[] decelerating = getPoints(Curves.SLOWDOWN_STARTING_POINT,
+				Curves.ENDING_POINT, deceleratingPoints);
 		int numPoints = accelerating.length + decelerating.length - 1;
 		double[] points = new double[numPoints];
 		for (int i = 0; i < accelerating.length; i++) {
@@ -68,10 +69,10 @@ public class Curves {
 
 	public static double[] getFullPointSet(int numPoints) {
 		double[] points = new double[numPoints];
-		double gap = (ENDING_POINT - ACCELERATION_STARTING_POINT)
+		double gap = (Curves.ENDING_POINT - Curves.ACCELERATION_STARTING_POINT)
 				/ (numPoints - 1);
 		for (int i = 0; i < numPoints; i++) {
-			points[i] = ACCELERATION_STARTING_POINT + gap * i;
+			points[i] = Curves.ACCELERATION_STARTING_POINT + gap * i;
 		}
 		return points;
 	}
@@ -79,18 +80,18 @@ public class Curves {
 	public double[] deriveDelayMultapliers(double[] points) {
 		double[] delays = new double[points.length];
 		for (int i = 0; i < points.length; i++) {
-			delays[i] = CEILING - getPointOnCombinedCurves(points[i]);
+			delays[i] = Curves.CEILING - getPointOnCombinedCurves(points[i]);
 		}
 		return delays;
 	}
 
 	public double[] getDelayMultapliers(int numPoints) {
-		delays.clear();
+		this.delays.clear();
 		double[] temp = deriveDelayMultapliers(getFullPointSet(numPoints));
 		for (int i = 0; i < temp.length; i++) {
-			delays.add(temp[i]);
+			this.delays.add(temp[i]);
 		}
-		index = 0;
+		this.index = 0;
 		return temp;
 	}
 
@@ -100,12 +101,13 @@ public class Curves {
 	 * @return if there are more delays on the line.
 	 */
 	public boolean useNextDelay() {
-		if (index == delays.size()) {
-			index = 0;
+		if (this.index == this.delays.size()) {
+			this.index = 0;
 			return false;
 		}
-		robot.delay((int) (UserInterface.BASE_DELAY * delays.get(index)));
-		index++;
+		this.robot.delay((int) (UserInterface.BASE_DELAY * this.delays
+				.get(this.index)));
+		this.index++;
 		return true;
 	}
 }

@@ -14,7 +14,7 @@ public class FlashManager implements MouseListener {
 	private static Timer timer = new Timer();
 
 	public static final long DELAY = 5000;
-	
+
 	public FlashManager() {
 
 	}
@@ -27,7 +27,7 @@ public class FlashManager implements MouseListener {
 				FlashManager.respond();
 			}
 		};
-		timer.schedule(task, FlashManager.DELAY);
+		FlashManager.timer.schedule(task, FlashManager.DELAY);
 	}
 
 	public static void setActive(boolean isActive) {
@@ -42,9 +42,9 @@ public class FlashManager implements MouseListener {
 	}
 
 	static void respond() {
-		if (active) {
-			picker.stopFlashing();
-			active = !active;
+		if (FlashManager.active) {
+			FlashManager.picker.stopFlashing();
+			FlashManager.active = !FlashManager.active;
 		}
 	}
 

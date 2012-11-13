@@ -56,7 +56,7 @@ public class DimensionsProcessor {
 	 * @return the resulting value.
 	 */
 	public final int scaleValue(int value) {
-		int temp = (int) (scale * value);
+		int temp = (int) (this.scale * value);
 		return temp;
 	}
 }
