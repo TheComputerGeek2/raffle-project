@@ -45,6 +45,11 @@ public class ImagePanel extends JLabel {
 	public void updateGraphics() {
 		this.g = this.p.getGraphics();
 	}
+	
+	@Override
+	public void repaint() {
+		
+	}
 
 	private void loadImage() {
 		try {
@@ -55,6 +60,8 @@ public class ImagePanel extends JLabel {
 		}
 	}
 
+	
+	
 	protected void resizeImage() {
 		this.ticketImg = (BufferedImage) this.ticketImg.getScaledInstance(
 				this.p.getWidth(), this.p.getHeight(),
@@ -72,6 +79,11 @@ public class ImagePanel extends JLabel {
 		this.ticketDisplayed = isDisplayed;
 	}
 
+	public void update() {
+		updateGraphics();
+		updateImage();
+	}
+	
 	protected void loadListeners() {
 		JFrame host = getHost();
 		host.addWindowListener(new WindowListener() {
@@ -130,6 +142,10 @@ public class ImagePanel extends JLabel {
 		}
 		return (JFrame) host;
 
+	}
+	
+	public JPanel getBase() {
+		return this.p;
 	}
 
 }

@@ -90,9 +90,24 @@ public class ThreePanelPicker implements Picker, ActionListener {
 		this.out2.setText(this.holders[0]);
 		this.holders[0] = value;
 		this.out1.paintImmediately(this.out1.getParent().getBounds());
+		updateImagePanel(this.out2);
 		this.out2.paintImmediately(this.out2.getParent().getBounds());
 		this.out3.paintImmediately(this.out3.getParent().getBounds());
+		updateText();
 		Toolkit.getDefaultToolkit().sync();
+	}
+	
+	private void updateText() {
+		this.out1.paintImmediately(this.out1.getBounds());
+		this.out2.paintImmediately(this.out2.getBounds());
+		this.out3.paintImmediately(this.out3.getBounds());
+	}
+	
+	@SuppressWarnings("static-method")
+	private void updateImagePanel(JLabel label) {
+		if (label instanceof ImagePanel) {
+			((ImagePanel) label).update();
+		}
 	}
 
 	@Override
@@ -112,6 +127,9 @@ public class ThreePanelPicker implements Picker, ActionListener {
 
 	/** Starts the winning sequence. */
 	private void winning() {
+		if (this.out2 instanceof ImagePanel) {
+			((ImagePanel) this.out2).setImageDisplayed(false);
+		}
 		this.out1.setText(Messages.getString("ThreePanelPicker.3")); //$NON-NLS-1$
 		this.out3.setText(Messages.getString("ThreePanelPicker.4")); //$NON-NLS-1$
 		this.timer.start();

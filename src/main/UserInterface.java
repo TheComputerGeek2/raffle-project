@@ -236,7 +236,7 @@ public class UserInterface implements KeyListener, MouseListener {
 	private JLabel[] addOutputs() {
 		for (int i = 0; i < 3; i++) {
 			this.outputs[i] = new ImagePanel();
-			this.frame.add(this.outputs[i]);
+			this.frame.add(((ImagePanel)this.outputs[i]).getBase());
 			this.outputs[i].setBackground(UserInterface.GOLD);
 			this.outputs[i].setHorizontalAlignment(SwingConstants.CENTER);
 			this.outputs[i].setFont(UserInterface.OUTPUT_FONT);
