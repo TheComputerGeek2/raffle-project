@@ -15,6 +15,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.Serializable;
 import java.util.Scanner;
 
 import javax.swing.JApplet;
@@ -25,7 +26,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class UserInterface implements KeyListener, MouseListener {
+public class UserInterface implements KeyListener, MouseListener, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3759621509811920550L;
 
 	/** The frame of the object. */
 	public Container frame;
@@ -95,6 +101,8 @@ public class UserInterface implements KeyListener, MouseListener {
 	private Picker np;
 
 	/**
+	 * public UserInterface() <p>
+	 * 
 	 * Instantiates a new user interface of the raffle program.
 	 * 
 	 * @throws AWTException
@@ -107,6 +115,8 @@ public class UserInterface implements KeyListener, MouseListener {
 	}
 
 	/**
+	 * public UserInterface({@link JFrame} frame) <p>
+	 * 
 	 * Instantiates a new user interface of the raffle program.
 	 * 
 	 * @param frame
@@ -138,6 +148,8 @@ public class UserInterface implements KeyListener, MouseListener {
 	}
 
 	/**
+	 * 
+	 * 
 	 * Centers the frame on the screen.
 	 * 
 	 * @param frame
@@ -236,7 +248,7 @@ public class UserInterface implements KeyListener, MouseListener {
 	private JLabel[] addOutputs() {
 		for (int i = 0; i < 3; i++) {
 			this.outputs[i] = new ImagePanel();
-			this.frame.add(((ImagePanel)this.outputs[i]).getBase());
+			this.frame.add(((ImagePanel) this.outputs[i]).getBase());
 			this.outputs[i].setBackground(UserInterface.GOLD);
 			this.outputs[i].setHorizontalAlignment(SwingConstants.CENTER);
 			this.outputs[i].setFont(UserInterface.OUTPUT_FONT);

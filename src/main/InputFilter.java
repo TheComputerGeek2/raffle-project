@@ -1,12 +1,19 @@
 package main;
 
+import java.awt.AWTError;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 
 import javax.swing.JTextField;
 
-public class InputFilter implements KeyListener {
+public class InputFilter implements KeyListener, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -893362519469923868L;
 
 	public static final String VALID_DECIMAL_INPUTS = Messages
 			.getString("InputFilter.0"); //$NON-NLS-1$

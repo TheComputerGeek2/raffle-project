@@ -8,12 +8,17 @@ import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
-public class ThreePanelPicker implements Picker, ActionListener {
+public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5269471983577430158L;
 	private JLabel out1;
 	private JLabel out2;
 	private JLabel out3;
@@ -96,13 +101,13 @@ public class ThreePanelPicker implements Picker, ActionListener {
 		updateText();
 		Toolkit.getDefaultToolkit().sync();
 	}
-	
+
 	private void updateText() {
 		this.out1.paintImmediately(this.out1.getBounds());
 		this.out2.paintImmediately(this.out2.getBounds());
 		this.out3.paintImmediately(this.out3.getBounds());
 	}
-	
+
 	@SuppressWarnings("static-method")
 	private void updateImagePanel(JLabel label) {
 		if (label instanceof ImagePanel) {
