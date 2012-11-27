@@ -43,7 +43,11 @@ public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 
 	private Curves c;
 
+	private BorderManager[] managers;
+
 	/**
+	 * 
+	 * 
 	 * Manages the output display components.
 	 * 
 	 * @param output1
@@ -71,6 +75,8 @@ public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 	}
 
 	/**
+	 * private void pushNextValue()
+	 * <p>
 	 * Pushes the next value into the system and prepares the number cycle
 	 * object for the next one.
 	 */
@@ -81,6 +87,8 @@ public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 	}
 
 	/**
+	 * private void pushValue ({@link String} value)
+	 * <p>
 	 * Pushes the text into the top panel, shifting the existing content down a
 	 * level.
 	 * 
@@ -115,9 +123,14 @@ public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 		}
 	}
 
+	public void setBorderManagers(BorderManager[] managers) {
+		this.managers = managers;
+	}
+
 	@Override
 	public void run() {
 		reset();
+
 		if (this.out2 instanceof ImagePanel) {
 			((ImagePanel) out2).setImageDisplayed(true);
 		}
@@ -130,7 +143,11 @@ public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 		winning();
 	}
 
-	/** Starts the winning sequence. */
+	/**
+	 * private void winning()
+	 * <p>
+	 * Starts the winning sequence.
+	 */
 	private void winning() {
 		if (this.out2 instanceof ImagePanel) {
 			((ImagePanel) this.out2).setImageDisplayed(false);
@@ -140,7 +157,11 @@ public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 		this.timer.start();
 	}
 
-	/** Toggles the color of the top and bottom output JLabels. */
+	/**
+	 * private void toggleColor()
+	 * <p>
+	 * Toggles the color of the top and bottom output JLabels.
+	 */
 	private void toggleColor() {
 		Color temp;
 		if (this.isGold) {
@@ -156,6 +177,8 @@ public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 	}
 
 	/**
+	 * public void reset()
+	 * <p>
 	 * Resets the system in preparation for the next usage.
 	 * 
 	 * @throws AWTError
@@ -171,10 +194,36 @@ public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 		this.out1.paintImmediately(this.out1.getBounds());
 		this.out2.paintImmediately(this.out2.getBounds());
 		this.out3.paintImmediately(this.out3.getBounds());
+		setBorderVisibility(new int[] { 0, 1, 2 }, false);
 		Toolkit.getDefaultToolkit().sync();
 	}
 
-	/** Stops the flashing of the display. */
+	/**
+	 * private void setBorderVisibility(int[] indexes, boolean visible)
+	 * <p>
+	 * 
+	 * Sets the visibility of the orders at indexes to visible.
+	 * 
+	 * @param indexes
+	 *            the indexes of the border managers
+	 * @param visible
+	 *            the visibility status to apply
+	 * 
+	 * @throws AWTError
+	 *             thrown by the updateBorder method in the BorderManager
+	 */
+	private void setBorderVisibility(int[] indexes, boolean visible) {
+		for (int i : indexes) {
+			this.managers[i].setBorderVivibility(visible);
+			this.managers[i].updateBorder();
+		}
+	}
+
+	/**
+	 * public void stopFlashing()
+	 * <p>
+	 * Stops the flashing of the display.
+	 */
 	public void stopFlashing() {
 		this.timer.stop();
 		if (!this.isGold) {

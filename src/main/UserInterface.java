@@ -100,8 +100,11 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 	/** The object that picks the numbers and displays them. */
 	private Picker np;
 
+	private BorderManager[] managers = new BorderManager[3];
+
 	/**
-	 * public UserInterface() <p>
+	 * public UserInterface()
+	 * <p>
 	 * 
 	 * Instantiates a new user interface of the raffle program.
 	 * 
@@ -115,7 +118,8 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 	}
 
 	/**
-	 * public UserInterface({@link JFrame} frame) <p>
+	 * public UserInterface({@link JFrame} frame)
+	 * <p>
 	 * 
 	 * Instantiates a new user interface of the raffle program.
 	 * 
@@ -142,6 +146,7 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 		this.frame.setBackground(UserInterface.GREEN);
 		ThreePanelPicker temp = new ThreePanelPicker(this.outputs[0],
 				this.outputs[1], this.outputs[2]);
+		temp.setBorderManagers(this.managers);
 		this.np = temp;
 		FlashManager.setDisplayManager(temp);
 		this.frame.setVisible(true);
@@ -194,6 +199,7 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 		addInputs();
 		addButton();
 		addOutputs();
+
 	}
 
 	/** Adds the input components to the frame. */
@@ -247,8 +253,9 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 	 */
 	private JLabel[] addOutputs() {
 		for (int i = 0; i < 3; i++) {
-			this.outputs[i] = new ImagePanel();
-			this.frame.add(((ImagePanel) this.outputs[i]).getBase());
+			this.outputs[i] = new JLabel();
+			this.managers[i] = new BorderManager(this.outputs[i]);
+			this.frame.add(this.outputs[i]);
 			this.outputs[i].setBackground(UserInterface.GOLD);
 			this.outputs[i].setHorizontalAlignment(SwingConstants.CENTER);
 			this.outputs[i].setFont(UserInterface.OUTPUT_FONT);
@@ -283,8 +290,8 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 			if (main.EventFilter.buttonEventFilter(keyCode)) {
 				pickingSequence();
 			}
-		} else if (java.awt.event.KeyEvent.getKeyText(keyCode)
-				.equalsIgnoreCase(Messages.getString("UserInterface.4"))) { //$NON-NLS-1$
+		} else if (KeyEvent.getKeyText(keyCode).equalsIgnoreCase(
+				Messages.getString("UserInterface.4"))) { //$NON-NLS-1$
 			shiftFocus(arg0);
 		}
 	}
@@ -321,7 +328,7 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 		} else {
 			this.np.inputProblem();
 			this.frame.repaint();
-			java.awt.Toolkit.getDefaultToolkit().sync();
+			Toolkit.getDefaultToolkit().sync();
 		}
 		FlashManager.setActive(true);
 	}
@@ -395,6 +402,7 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 	 * Verifies that the inputs are within the range supported by an integer.
 	 * 
 	 * @return if the inputs are in the valid range.
+	 * 
 	 * @throws NumberFormatError
 	 *             if the inputs does not contain a parsable long.
 	 */

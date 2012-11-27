@@ -43,6 +43,10 @@ public class BorderManager implements Serializable {
 	public void setBorderVivibility(boolean visibility) {
 		this.borderDisplayed = visibility;
 	}
+	
+	public void toggleBorderVisibility() {
+		this.borderDisplayed = !this.borderDisplayed;
+	}
 
 	/**
 	 * Updates and repaints the border.
