@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.AWTError;
+import java.awt.MediaTracker;
 import java.awt.Toolkit;
 import java.io.Serializable;
 
@@ -33,9 +34,34 @@ public class BorderManager implements Serializable {
 
 	private void loadBorder() {
 		this.ii = new ImageIcon(BorderManager.FILE_PATH);
-		this.b = BorderFactory.createMatteBorder(0, 0, 0, 0, this.ii);
+		loadImage();
+		this.b = BorderFactory.createMatteBorder(-1, -1, -1, -1, this.ii);
 		// FIXME change the parameters to properly display the icon
 
+	}
+	
+	//FIXME fix the image loading
+	//TODO create a media tracker to track the image
+	private void loadImage() {
+		boolean loaded = false;
+		while (!loaded) {
+			switch (this.ii.getImageLoadStatus()) {
+			case MediaTracker.ABORTED:
+				System.out.println("Aborted");
+				return;
+			case MediaTracker.COMPLETE:
+				System.out.println("Completed");
+				loaded = true;
+				break;
+			case MediaTracker.ERRORED:
+				System.out.println("Error");
+				return;
+			case MediaTracker.LOADING:
+				System.out.println("loading");
+				break;
+				
+			}
+		}
 	}
 
 	// TODO get an image to use for the border

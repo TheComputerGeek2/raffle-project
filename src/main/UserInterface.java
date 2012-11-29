@@ -1,7 +1,5 @@
 package main;
 
-import interfaces.Picker;
-
 import java.awt.AWTError;
 import java.awt.AWTException;
 import java.awt.Color;
@@ -98,7 +96,7 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 			Font.BOLD, UserInterface.dp.scaleValue(50));
 
 	/** The object that picks the numbers and displays them. */
-	private Picker np;
+	private ThreePanelPicker np;
 
 	private BorderManager[] managers = new BorderManager[3];
 
@@ -334,6 +332,10 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 	}
 
 	/**
+	 * public void pushValue ({@link JLabel} out1, {@link JLabel} out2,
+	 * {@link JLabel} out3, int value)
+	 * <p>
+	 * 
 	 * Pushes the new value into the system.
 	 * 
 	 * @param out1
