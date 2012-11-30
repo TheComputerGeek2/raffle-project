@@ -23,7 +23,8 @@ public class BorderManager implements Serializable {
 
 	private boolean borderDisplayed = false;
 
-	public static final String FILE_PATH = "/raffle-project/src/main/trollface.png";
+	//TODO get the image directory on the client machine
+	public static final String FILE_PATH = "H:\\Workspace\\raffle-project\\src\\main\\trollface.png";
 
 	private ImageIcon ii;
 
