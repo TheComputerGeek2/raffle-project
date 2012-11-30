@@ -46,7 +46,9 @@ public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 	private BorderManager[] managers;
 
 	/**
-	 * 
+	 * public ThreePanelPicker ({@link JLabel} output1, {@link JLabel} output2,
+	 * {@link JLabel} output3) throws {@link AWTException}
+	 * <p>
 	 * 
 	 * Manages the output display components.
 	 * 
@@ -123,6 +125,14 @@ public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 		}
 	}
 
+	/**
+	 * public void setBorderManagers ({@link BorderManager}[] managers)
+	 * <p>
+	 * Specifies what BorderManagers to use for the output display.
+	 * 
+	 * @param managers
+	 *            the border managers to use.
+	 */
 	public void setBorderManagers(BorderManager[] managers) {
 		this.managers = managers;
 	}
@@ -130,10 +140,10 @@ public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 	@Override
 	public void run() {
 		reset();
-		setBorderVisibility(new int[]{1}, true);
+		setBorderVisibility(new int[] { 1 }, true);
 
 		if (this.out2 instanceof ImagePanel) {
-			((ImagePanel) out2).setImageDisplayed(true);
+			((ImagePanel) this.out2).setImageDisplayed(true);
 		}
 		boolean temp = true;
 		this.c.getDelayMultapliers(this.NUMBERS);

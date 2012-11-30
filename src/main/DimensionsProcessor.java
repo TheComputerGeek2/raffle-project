@@ -8,6 +8,9 @@ public class DimensionsProcessor {
 	private double scale;
 
 	/**
+	 * public DimensionsProcessor (int width, int height)
+	 * <p>
+	 * 
 	 * Instantiates a new DimensionsProcessor for the specified width and height
 	 * of a component.
 	 * 
@@ -27,6 +30,10 @@ public class DimensionsProcessor {
 	}
 
 	/**
+	 * public static final double determineScale (int width, int height)
+	 * <p>
+	 * 
+	 * 
 	 * Returns the value by which to scale the font sizes and dimensions.
 	 * 
 	 * @param width
@@ -48,6 +55,9 @@ public class DimensionsProcessor {
 	}
 
 	/**
+	 * public final int scaleValue (int value)
+	 * <p>
+	 * 
 	 * Scales the specified value by the scale calculated from the width and
 	 * height of the frame.
 	 * 

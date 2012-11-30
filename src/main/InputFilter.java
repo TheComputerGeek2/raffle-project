@@ -46,6 +46,9 @@ public class InputFilter implements KeyListener, Serializable {
 	}
 
 	/**
+	 * private void response (@link KeyEvent} arg0)
+	 * <p>
+	 * 
 	 * The response for key events.
 	 * 
 	 * @param arg0
@@ -58,6 +61,10 @@ public class InputFilter implements KeyListener, Serializable {
 	}
 
 	/**
+	 * public void enforceValidInputCharacters ({@link String} input,
+	 * {@link String} validInputs)
+	 * <p>
+	 * 
 	 * Enforces the use of valid input characters.
 	 * 
 	 * @param input
@@ -81,6 +88,9 @@ public class InputFilter implements KeyListener, Serializable {
 	}
 
 	/**
+	 * private void enforceLength ({@link String} input, int maxLength)
+	 * <p>
+	 * 
 	 * Enforces a maximum input length.
 	 * 
 	 * @param input
@@ -100,6 +110,9 @@ public class InputFilter implements KeyListener, Serializable {
 	}
 
 	/**
+	 * private static void beep()
+	 * <p>
+	 * 
 	 * Calls the sync and beep methods from the default toolkit.
 	 * 
 	 * @throws AWTError
@@ -112,6 +125,10 @@ public class InputFilter implements KeyListener, Serializable {
 	}
 
 	/**
+	 * private static boolean checkCharacters ({@link String} text,
+	 * {@link String} validInputs)
+	 * <p>
+	 * 
 	 * Checks to see if the specified character is valid for input.
 	 * 
 	 * @param text

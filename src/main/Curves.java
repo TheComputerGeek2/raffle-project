@@ -33,9 +33,9 @@ public class Curves {
 
 	public static double getPointOnCombinedCurves(double value) {
 		if (value < Curves.SLOWDOWN_STARTING_POINT) {
-			return getAcceleratingCurveValue(value);
+			return Curves.getAcceleratingCurveValue(value);
 		}
-		return getDeceleratingCurveValue(value);
+		return Curves.getDeceleratingCurveValue(value);
 	}
 
 	public static double[] getPoints(double minimum, double maximum,
@@ -51,11 +51,12 @@ public class Curves {
 
 	public static double[] getFullPointSet(int acceleratingPoints,
 			int deceleratingPoints) {
-		double[] accelerating = getPoints(Curves.ACCELERATION_STARTING_POINT
-				+ Curves.CUTOFF, Curves.SLOWDOWN_STARTING_POINT,
-				acceleratingPoints);
-		double[] decelerating = getPoints(Curves.SLOWDOWN_STARTING_POINT,
-				Curves.ENDING_POINT, deceleratingPoints);
+		double[] accelerating = Curves.getPoints(
+				Curves.ACCELERATION_STARTING_POINT + Curves.CUTOFF,
+				Curves.SLOWDOWN_STARTING_POINT, acceleratingPoints);
+		double[] decelerating = Curves.getPoints(
+				Curves.SLOWDOWN_STARTING_POINT, Curves.ENDING_POINT,
+				deceleratingPoints);
 		int numPoints = accelerating.length + decelerating.length - 1;
 		double[] points = new double[numPoints];
 		for (int i = 0; i < accelerating.length; i++) {
@@ -80,14 +81,16 @@ public class Curves {
 	public double[] deriveDelayMultapliers(double[] points) {
 		double[] delays = new double[points.length];
 		for (int i = 0; i < points.length; i++) {
-			delays[i] = Curves.CEILING - getPointOnCombinedCurves(points[i]);
+			delays[i] = Curves.CEILING
+					- Curves.getPointOnCombinedCurves(points[i]);
 		}
 		return delays;
 	}
 
 	public double[] getDelayMultapliers(int numPoints) {
 		this.delays.clear();
-		double[] temp = deriveDelayMultapliers(getFullPointSet(numPoints));
+		double[] temp = deriveDelayMultapliers(Curves
+				.getFullPointSet(numPoints));
 		for (int i = 0; i < temp.length; i++) {
 			this.delays.add(temp[i]);
 		}
@@ -96,6 +99,9 @@ public class Curves {
 	}
 
 	/**
+	 * public boolean useNextDelay ()
+	 * <p>
+	 * 
 	 * Uses the next delay on the line.
 	 * 
 	 * @return if there are more delays on the line.

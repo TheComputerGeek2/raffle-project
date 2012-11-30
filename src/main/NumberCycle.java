@@ -17,6 +17,9 @@ public class NumberCycle {
 	}
 
 	/**
+	 * public void setRange (int minimum, int maximum)
+	 * <p>
+	 * 
 	 * Sets the range to be used for the number set.
 	 * 
 	 * @param minimum
@@ -34,6 +37,9 @@ public class NumberCycle {
 	}
 
 	/**
+	 * public int getCurrent()
+	 * <p>
+	 * 
 	 * Returns the current value.
 	 * 
 	 * @return the current value attached to the index.
@@ -42,8 +48,13 @@ public class NumberCycle {
 		return NumberCycle.numbers.get(NumberCycle.currentIndex);
 	}
 
-	/** Shifts the index by one. */
+	/**
+	 * public void shiftIndex()
+	 * <p>
+	 * Shifts the index by one.
+	 */
 	public void shiftIndex() {
-		NumberCycle.currentIndex = this.rand.nextInt(NumberCycle.numbers.size());
+		NumberCycle.currentIndex = this.rand
+				.nextInt(NumberCycle.numbers.size());
 	}
 }

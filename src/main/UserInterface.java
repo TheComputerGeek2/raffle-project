@@ -151,7 +151,8 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 	}
 
 	/**
-	 * 
+	 * private static {@link Point} centerFrame ({@link Container} frame)
+	 * <p>
 	 * 
 	 * Centers the frame on the screen.
 	 * 
@@ -171,6 +172,9 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 	}
 
 	/**
+	 * private {@link Container} makeFrame ({@link Container} frame)
+	 * <p>
+	 * 
 	 * Makes the frame of the object.
 	 * 
 	 * @return the frame of the object.
@@ -192,7 +196,11 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 		return frame;
 	}
 
-	/** Adds the components to the frame. */
+	/**
+	 * private void addComponents()
+	 * <p>
+	 * Adds the components to the frame.
+	 */
 	private void addComponents() {
 		addInputs();
 		addButton();
@@ -200,7 +208,11 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 
 	}
 
-	/** Adds the input components to the frame. */
+	/**
+	 * private void addInputs()
+	 * <p>
+	 * Adds the input components to the frame.
+	 */
 	private void addInputs() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(2, 1));
@@ -245,6 +257,9 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 	}
 
 	/**
+	 * private {@link JLabel}[] addOutputs()
+	 * <p>
+	 * 
 	 * Adds the output components to the frame.
 	 * 
 	 * @return an array of JLabels containing the output components.
@@ -263,6 +278,9 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 	}
 
 	/**
+	 * private {@link JButton} addButton()
+	 * <p>
+	 * 
 	 * Adds the 'go' button to the frame.
 	 * 
 	 * @return the button.
@@ -278,10 +296,15 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 	}
 
 	/**
+	 * private void response ({@link Object} arg0, {@link Integer} keyCode)
+	 * <p>
+	 * 
 	 * The responses for the events.
 	 * 
 	 * @param arg0
 	 *            the source of the event.
+	 * @param keyCode
+	 *            the keyCode of the event if applicable.
 	 */
 	private void response(Object arg0, Integer keyCode) {
 		if (arg0.equals(this.pickNumber)) {
@@ -295,6 +318,9 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 	}
 
 	/**
+	 * private void shiftFocus ({@link Object} arg0)
+	 * <p>
+	 * 
 	 * Shifts the focus from one component to another.
 	 * 
 	 * @param arg0
@@ -310,6 +336,9 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 	}
 
 	/**
+	 * private void pickingSequence()
+	 * <p>
+	 * 
 	 * The sequence for picking the numbers.
 	 * 
 	 * @throws AWTError
@@ -354,6 +383,8 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 	}
 
 	/**
+	 * private boolean getInputs()
+	 * <p>
 	 * Gets the minimum and maximum values.
 	 * 
 	 * @return if the inputs are valid.
@@ -377,6 +408,9 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 	}
 
 	/**
+	 * private boolean verifyValidInputType()
+	 * <p>
+	 * 
 	 * Verifies that the proper input type has been provided.
 	 * 
 	 * @return if the proper input type has been provided.
@@ -401,6 +435,9 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 	}
 
 	/**
+	 * private boolean verifyValidValues()
+	 * <p>
+	 * 
 	 * Verifies that the inputs are within the range supported by an integer.
 	 * 
 	 * @return if the inputs are in the valid range.
@@ -418,6 +455,9 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 	}
 
 	/**
+	 * private boolean verifyValidRange()
+	 * <p>
+	 * 
 	 * Verifies that a valid range has been provided.
 	 * 
 	 * @return if the range provided is valid.
