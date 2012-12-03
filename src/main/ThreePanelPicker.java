@@ -205,7 +205,7 @@ public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 		this.out1.paintImmediately(this.out1.getBounds());
 		this.out2.paintImmediately(this.out2.getBounds());
 		this.out3.paintImmediately(this.out3.getBounds());
-		setBorderVisibility(new int[] { 0, 1, 2 }, false);
+		
 		Toolkit.getDefaultToolkit().sync();
 	}
 
@@ -236,6 +236,7 @@ public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 	 * Stops the flashing of the display.
 	 */
 	public void stopFlashing() {
+		setBorderVisibility(new int[] { 0, 1, 2 }, false);
 		this.timer.stop();
 		if (!this.isGold) {
 			toggleColor();

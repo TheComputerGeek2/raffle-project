@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.AWTError;
+import java.awt.Color;
 import java.awt.MediaTracker;
 import java.awt.Toolkit;
 import java.io.Serializable;
@@ -21,9 +22,11 @@ public class BorderManager implements Serializable {
 
 	private Border b;
 
+	private Border empty;
+	
 	private boolean borderDisplayed = false;
 
-	//TODO get the image directory on the client machine
+	// TODO get the image directory on the client machine
 	public static final String FILE_PATH = "H:\\Workspace\\raffle-project\\src\\main\\trollface.png";
 
 	private ImageIcon ii;
@@ -32,17 +35,27 @@ public class BorderManager implements Serializable {
 		this.comp = comp;
 		loadBorder();
 	}
-
+	
 	private void loadBorder() {
+		this.ii = null;
+		this.b = BorderFactory.createLineBorder(Color.RED, 1);
+		this.empty = BorderFactory.createLineBorder(UserInterface.GOLD, 1);
+	}
+
+	/*private void loadBorder() {
+		//TODO load the image and resize it according to the gui size
+		
 		this.ii = new ImageIcon(BorderManager.FILE_PATH);
 		loadImage();
 		this.b = BorderFactory.createMatteBorder(-1, -1, -1, -1, this.ii);
 		// FIXME change the parameters to properly display the icon
 
-	}
-	
-	//FIXME fix the image loading
-	//TODO create a media tracker to track the image
+	}*/
+
+	// FIXME fix the image loading
+	// TODO create a media tracker to track the image
+	/* TODO consider removing this method it is potentially unneeded but useful
+	* for error tracking */
 	private void loadImage() {
 		boolean loaded = false;
 		while (!loaded) {
@@ -60,7 +73,7 @@ public class BorderManager implements Serializable {
 			case MediaTracker.LOADING:
 				System.out.println("loading");
 				break;
-				
+
 			}
 		}
 	}
@@ -70,7 +83,7 @@ public class BorderManager implements Serializable {
 	public void setBorderVivibility(boolean visibility) {
 		this.borderDisplayed = visibility;
 	}
-	
+
 	public void toggleBorderVisibility() {
 		this.borderDisplayed = !this.borderDisplayed;
 	}
@@ -85,9 +98,11 @@ public class BorderManager implements Serializable {
 		if (this.borderDisplayed) {
 			this.comp.setBorder(this.b);
 		} else {
-			this.comp.setBorder(BorderFactory.createEmptyBorder());
+			//this.comp.setBorder(BorderFactory.createEmptyBorder());
+			this.comp.setBorder(this.empty);
 		}
-		this.comp.repaint();
+		
+		this.comp.paintImmediately(this.comp.getBounds());
 		Toolkit.getDefaultToolkit().sync();
 	}
 
