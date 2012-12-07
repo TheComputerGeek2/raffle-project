@@ -8,13 +8,22 @@ public class NumberCycle {
 	private static ArrayList<Integer> numbers;
 	private static int currentIndex;
 
+	private int minimum;
+	
+	private int maximum;
+	
 	private Random rand;
 
+	private String setDigits = "";
+	
+	
 	public NumberCycle() {
 		rand = new Random();
 		NumberCycle.numbers = new ArrayList<Integer>();
 		NumberCycle.currentIndex = 0;
 	}
+	
+	
 
 	/**
 	 * public void setRange (int minimum, int maximum)
