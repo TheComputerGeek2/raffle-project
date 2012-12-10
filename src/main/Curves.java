@@ -116,4 +116,9 @@ public class Curves {
 		this.index++;
 		return true;
 	}
+
+	public int remainingDelays() {
+		return this.delays.size() - this.index;
+	}
+
 }

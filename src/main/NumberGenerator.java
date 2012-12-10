@@ -20,9 +20,15 @@ public class NumberGenerator {
 		this.rand = new Random();
 	}
 
+	public int getMaxLength() {
+		return this.maxLength;
+	}
+
 	// TODO determine when to call this method
-	private void extractDigit() {
+	public void extractDigit() {
+		System.out.println("Set Values = " + this.setValues);
 		this.setValues += formatValue().charAt(this.setValues.length());
+		System.out.println("Set values = " + this.setValues);
 		updateMaxValue();
 	}
 
@@ -38,9 +44,10 @@ public class NumberGenerator {
 		return this.setValues + getRemainingDigits();
 	}
 
-	private int getRemainingDigits() {
+	private String getRemainingDigits() {
 		String temp = formatValue().substring(this.setValues.length());
-		return Integer.parseInt(temp);
+		return temp;
+	//	return Integer.parseInt(temp);
 	}
 
 	private String formatValue() {
@@ -52,9 +59,9 @@ public class NumberGenerator {
 
 	}
 
-	//TODO implement the useage of this method after verifying the range
+	// TODO implement the useage of this method after verifying the range
 	// TODO check that this can generate ALL values in the range
-	private void generateNewValue() {
+	public void generateNewValue() {
 		this.currentValue = this.rand.nextInt(this.maximum - this.minimum + 1)
 				+ this.minimum;
 	}
@@ -64,5 +71,6 @@ public class NumberGenerator {
 		this.maximum = maximum;
 		this.maxLength = (maximum + "").length();
 		this.setValues = "";
+		this.currentValue = 0;
 	}
 }

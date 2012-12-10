@@ -26,7 +26,7 @@ public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 	private String[] holders = {
 			Messages.getString("ThreePanelPicker.0"), Messages.getString("ThreePanelPicker.1") }; //$NON-NLS-1$ //$NON-NLS-2$
 
-	private NumberCycle nc;
+	private NumberGenerator nc;
 
 	/** The amount by which the multiplier increases each round. */
 	public final double ROUND_MULTAPLIER_INCREASE = 0.1;
@@ -66,7 +66,7 @@ public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 		this.out1 = output1;
 		this.out2 = output2;
 		this.out3 = output3;
-		this.nc = new NumberCycle();
+		this.nc = new NumberGenerator();
 		this.timer = new Timer(this.TIMER_DELAY, this);
 		this.c = new Curves();
 	}
@@ -85,7 +85,7 @@ public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 	private void pushNextValue() {
 		pushValue(this.nc.getCurrent()
 				+ Messages.getString("ThreePanelPicker.2")); //$NON-NLS-1$
-		this.nc.shiftIndex();
+		this.nc.generateNewValue();
 	}
 
 	/**
@@ -150,6 +150,9 @@ public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 		while (temp) {
 			pushNextValue();
 			temp = this.c.useNextDelay();
+			if ((this.c.remainingDelays() - this.nc.getMaxLength()) < 0) {
+				this.nc.extractDigit();
+			}
 		}
 		winning();
 	}
@@ -205,7 +208,7 @@ public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 		this.out1.paintImmediately(this.out1.getBounds());
 		this.out2.paintImmediately(this.out2.getBounds());
 		this.out3.paintImmediately(this.out3.getBounds());
-		
+
 		Toolkit.getDefaultToolkit().sync();
 	}
 
