@@ -107,18 +107,22 @@ public class Curves {
 	 * @return if there are more delays on the line.
 	 */
 	public boolean useNextDelay() {
-		if (this.index == this.delays.size()) {
-			this.index = 0;
-			return false;
-		}
-		this.robot.delay((int) (UserInterface.BASE_DELAY * this.delays
-				.get(this.index)));
-		this.index++;
-		return true;
+		return useNextDelay(1.0);
 	}
 
 	public int remainingDelays() {
 		return this.delays.size() - this.index;
+	}
+
+	public boolean useNextDelay(double multaplier) {
+		if (this.index == this.delays.size()) {
+			this.index = 0;
+			return false;
+		}
+		this.robot.delay((int) ((UserInterface.BASE_DELAY * this.delays
+				.get(this.index)) * multaplier));
+		this.index++;
+		return true;
 	}
 
 }

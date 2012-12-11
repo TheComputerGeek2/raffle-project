@@ -147,11 +147,13 @@ public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 		}
 		boolean temp = true;
 		this.c.getDelayMultapliers(this.NUMBERS);
+		double delayMultaplier = 1.0;
 		while (temp) {
 			pushNextValue();
-			temp = this.c.useNextDelay();
+			temp = this.c.useNextDelay(delayMultaplier);
 			if ((this.c.remainingDelays() - this.nc.getMaxLength()) < 0) {
 				this.nc.extractDigit();
+				delayMultaplier = 1.5;
 			}
 		}
 		winning();
