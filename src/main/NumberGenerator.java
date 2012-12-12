@@ -16,6 +16,8 @@ public class NumberGenerator {
 
 	private int maxLength;
 
+	private int range;
+
 	public NumberGenerator() {
 		this.rand = new Random();
 	}
@@ -41,7 +43,7 @@ public class NumberGenerator {
 		int unlockedValues = this.maxLength - this.setValues.length() + 1;
 		int lastLocked = Integer.parseInt(this.setValues.charAt(this.setValues
 				.length() - 1) + "");
-		this.maximum = (int) (this.maximum - (lastLocked * (Math.pow(10,
+		this.range = (int) (this.range - (lastLocked * (Math.pow(10,
 				unlockedValues - 1))));
 
 	}
@@ -77,6 +79,8 @@ public class NumberGenerator {
 
 	}
 
+	// FIXME fix the number generation THE SPECIFIED RANGE IS NOT HONORED
+
 	// TODO implement the useage of this method after verifying the range
 	// TODO check that this can generate ALL values in the range
 	/**
@@ -85,10 +89,10 @@ public class NumberGenerator {
 	 * Generates a new value to use in the system.
 	 */
 	public void generateNewValue() {
-		System.out.println("Random's max = "
-				+ (this.maximum - this.minimum + 1));
+		System.out.println("Random's max = " + (this.range));
+		System.out.println("Max value = " + this.maximum);
 		System.out.println("Minimum value = " + this.minimum);
-		int temp = this.rand.nextInt(this.maximum - this.minimum + 1);
+		int temp = this.rand.nextInt(this.range);
 		System.out.println("Generated value = " + temp);
 		this.currentValue = temp + this.minimum;
 	}
@@ -109,6 +113,7 @@ public class NumberGenerator {
 		System.out.println("Range set to " + minimum + " to " + maximum);
 		this.minimum = minimum;
 		this.maximum = maximum;
+		this.range = this.maximum - this.minimum + 1;
 		this.maxLength = (maximum + "").length();
 		this.setValues = "";
 		this.currentValue = 0;
