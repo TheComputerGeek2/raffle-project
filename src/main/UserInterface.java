@@ -308,7 +308,7 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 	 */
 	private void response(Object arg0, Integer keyCode) {
 		if (arg0.equals(this.pickNumber)) {
-			if (main.EventFilter.buttonEventFilter(keyCode)) {
+			if (EventFilter.buttonEventFilter(keyCode)) {
 				pickingSequence();
 			}
 		} else if (KeyEvent.getKeyText(keyCode).equalsIgnoreCase(

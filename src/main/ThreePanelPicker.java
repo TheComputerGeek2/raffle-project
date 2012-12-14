@@ -26,7 +26,7 @@ public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 	private String[] holders = {
 			Messages.getString("ThreePanelPicker.0"), Messages.getString("ThreePanelPicker.1") }; //$NON-NLS-1$ //$NON-NLS-2$
 
-	private NumberGenerator nc;
+	private NumberGenerator2 nc;
 
 	/** The amount by which the multiplier increases each round. */
 	public final double ROUND_MULTAPLIER_INCREASE = 0.1;
@@ -66,7 +66,7 @@ public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 		this.out1 = output1;
 		this.out2 = output2;
 		this.out3 = output3;
-		this.nc = new NumberGenerator();
+		this.nc = new NumberGenerator2();
 		this.timer = new Timer(this.TIMER_DELAY, this);
 		this.c = new Curves();
 	}
@@ -85,7 +85,7 @@ public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 	private void pushNextValue() {
 		pushValue(this.nc.getCurrent()
 				+ Messages.getString("ThreePanelPicker.2")); //$NON-NLS-1$
-		this.nc.generateNewValue();
+		this.nc.generateValues();
 	}
 
 	/**
@@ -145,6 +145,7 @@ public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 		if (this.out2 instanceof ImagePanel) {
 			((ImagePanel) this.out2).setImageDisplayed(true);
 		}
+		this.nc.generateFinalValue();
 		boolean temp = true;
 		this.c.getDelayMultapliers(this.NUMBERS);
 		double delayMultaplier = 1.0;
@@ -152,10 +153,11 @@ public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 			pushNextValue();
 			temp = this.c.useNextDelay(delayMultaplier);
 			if ((this.c.remainingDelays() - this.nc.getMaxLength()) < 0) {
-				this.nc.extractDigit();
-				delayMultaplier = 1.5;
+				this.nc.lockNextValueDigit();
+				delayMultaplier = 2.5;
 			}
 		}
+		pushValue(this.nc.getFinalValue());
 		winning();
 	}
 

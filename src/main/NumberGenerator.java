@@ -96,7 +96,7 @@ public class NumberGenerator {
 		System.out.println("Generated value = " + temp);
 		this.currentValue = temp + this.minimum;
 	}
-
+	
 	/**
 	 * public void setRange (int minimum, int maximum)
 	 * <p>
