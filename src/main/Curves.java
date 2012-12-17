@@ -125,4 +125,12 @@ public class Curves {
 		return true;
 	}
 
+	public void useDelay() {
+		if (this.index >= this.delays.size()) {
+			return;
+		}
+		this.robot.delay((int) ((UserInterface.BASE_DELAY * this.delays
+				.get(this.index))));
+	}
+
 }

@@ -45,7 +45,7 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 	public static final int BASE_ROUNDS = 20;
 
 	/** The base delay in between numbers. */
-	public static final int DELAY = 30;
+	public static final int DELAY = 20;
 
 	/** The width of the frame. */
 	public static final int BASE_WIDTH = 300;

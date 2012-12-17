@@ -12,7 +12,7 @@ public class NumberGenerator2 {
 
 	private int finalValue;
 
-	private String currentValue;
+	private String currentValue = "";
 
 	public static final int INITIAL_VALUES = 50;
 
