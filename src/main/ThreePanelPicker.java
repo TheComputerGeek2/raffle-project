@@ -15,6 +15,8 @@ import javax.swing.Timer;
 
 public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 
+	// TODO determine if this class needs to run on its own thread
+
 	/**
 	 * 
 	 */

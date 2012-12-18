@@ -13,6 +13,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.Serializable;
 import java.util.Scanner;
 
@@ -32,7 +34,7 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 	private static final long serialVersionUID = -3759621509811920550L;
 
 	/** The frame of the object. */
-	public Container frame;
+	public DisposableFrame frame;
 
 	public static final String TITLE = Messages.getString("UserInterface.0"); //$NON-NLS-1$
 
@@ -112,7 +114,7 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 	 *             instantiated.
 	 */
 	public UserInterface() throws AWTException {
-		this(new JFrame());
+		this(new DisposableFrame());
 	}
 
 	/**
@@ -189,10 +191,8 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 		frame.setLayout(new GridLayout(5, 1));
 		if (frame instanceof JFrame) {
 			((JFrame) frame).setTitle(UserInterface.TITLE);
-		} else if (frame instanceof JApplet) {
-			((JApplet) frame).setName(UserInterface.TITLE);
 		}
-		this.frame = frame;
+		this.frame = (DisposableFrame) frame;
 		return frame;
 	}
 
@@ -202,6 +202,7 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 	 * Adds the components to the frame.
 	 */
 	private void addComponents() {
+		monitorFrame();
 		addInputs();
 		addButton();
 		addOutputs();
@@ -254,6 +255,59 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 		panel2.add(this.maximumValueInput);
 		panel.add(panel2);
 		this.frame.add(panel);
+	}
+
+	private void monitorFrame() {
+		/*
+		 * TODO determine how to dispose the frame before the event reaches the
+		 * front of the queue
+		 */
+		this.frame.addWindowListener(new WindowListener() {
+
+			@Override
+			public void windowActivated(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowClosed(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				System.out.println("Attempting to close frame");
+				frame.dispose();
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowIconified(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowOpened(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+		});
 	}
 
 	/**
