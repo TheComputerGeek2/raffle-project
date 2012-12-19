@@ -202,7 +202,7 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 	 * Adds the components to the frame.
 	 */
 	private void addComponents() {
-		monitorFrame();
+		//monitorFrame();
 		addInputs();
 		addButton();
 		addOutputs();
