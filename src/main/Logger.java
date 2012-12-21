@@ -1,23 +1,27 @@
 package main;
 
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Logger {
 
-	public Logger() {
-		// TODO create a log in the H drive
-		// TODO create a config file and a means to enable or disable the
-		// logging
-		/*
-		 * Information to log: Minimum value, maximum value, ending value, seed,
-		 * date
-		 */
+	public static final String logDirectory = "H://RaffleLog.txt";
 
-		/*
-		 * Logging options: where to keep the log if a log should be kept
-		 */
-	}
+	private static PrintStream out;
+
+	// TODO create a log in the H drive
+	// TODO create a config file and a means to enable or disable the
+	// logging
+	/*
+	 * Information to log: Minimum value, maximum value, ending value, seed,
+	 * date
+	 */
+
+	/*
+	 * Logging options: where to keep the log if a log should be kept
+	 */
 
 	public static String getDateStamp() {
 		Date temp = new Date(System.currentTimeMillis());
@@ -26,8 +30,33 @@ public class Logger {
 		return dateString;
 	}
 
-	public String formatInformation(long seed, int minimum, int maximum) {
-		return Logger.getDateStamp() + " Seed (" + String.valueOf(seed)
-				+ ") Minimum: (" + minimum + ") Maximum: (" + maximum + ")";
+	public static String formatInformation(int minimum, int maximum,
+			int valueGenerated) {
+		return Logger.getDateStamp() + " Minimum: (" + minimum + ") Maximum: ("
+				+ maximum + ") Value Generated: (" + valueGenerated + ")";
+	}
+
+	/**
+	 * public static void log ({@link String} information)
+	 * <p>
+	 * Logs the information provided to the file.
+	 * 
+	 * @param information
+	 *            the formatted information to save.
+	 */
+	public static void log(String information) {
+		Logger.initialize();
+		Logger.out.append(information + "\n\n");
+	}
+
+	private static void initialize() {
+		if (Logger.out == (null)) {
+			try {
+				Logger.out = new PrintStream(Logger.logDirectory);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }
