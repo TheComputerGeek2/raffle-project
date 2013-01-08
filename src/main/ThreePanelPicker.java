@@ -142,7 +142,7 @@ public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 	@Override
 	public void run() {
 		reset();
-		setBorderVisibility(new int[] { 1 }, true);
+		//setBorderVisibility(new int[] { 1 }, true);
 
 		if (this.out2 instanceof ImagePanel) {
 			((ImagePanel) this.out2).setImageDisplayed(true);

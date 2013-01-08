@@ -1,5 +1,6 @@
 package main;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.text.SimpleDateFormat;
@@ -7,7 +8,13 @@ import java.util.Date;
 
 public class Logger {
 
-	public static final String logDirectory = "H://RaffleLog.txt";
+	public static final boolean LOGGER_ACTIVE = true;
+
+	public static final String LOG_DIRECTORY = "H://RaffleLogs/";
+
+	private static String secondaryLogDirectory;
+
+	public static final String BASE_FILENAME = "RaffleLog.txt";
 
 	private static PrintStream out;
 
@@ -45,18 +52,31 @@ public class Logger {
 	 *            the formatted information to save.
 	 */
 	public static void log(String information) {
+		if (!Logger.LOGGER_ACTIVE) {
+			return;
+		}
 		Logger.initialize();
-		Logger.out.append(information + "\n\n");
+		Logger.out.println(information);
+
+	}
+
+	private static void makeLogFolder() {
+		Logger.secondaryLogDirectory = System.currentTimeMillis() + "";
+		new File("H://RaffleLogs/" + Logger.secondaryLogDirectory).mkdirs();
 	}
 
 	private static void initialize() {
+
 		if (Logger.out == (null)) {
+			Logger.makeLogFolder();
 			try {
-				Logger.out = new PrintStream(Logger.logDirectory);
+				Logger.out = new PrintStream(Logger.LOG_DIRECTORY
+						+ Logger.secondaryLogDirectory + "/" + "Raffle.txt");
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
 		}
 	}
 }

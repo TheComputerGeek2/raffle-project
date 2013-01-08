@@ -41,7 +41,10 @@ public class NumberGenerator2 {
 		this.finalValue = this.rand.nextInt(this.maximum - this.minimum + 1)
 				+ this.minimum;
 		System.out.println("Final value selected: " + this.finalValue);
-		Logger.log(Logger.formatInformation(this.minimum, this.maximum, this.finalValue));
+
+		Logger.log(Logger.formatInformation(this.minimum, this.maximum,
+				this.finalValue));
+
 	}
 
 	/*
@@ -76,9 +79,9 @@ public class NumberGenerator2 {
 	public int getMaxLength() {
 		return this.maxLength;
 	}
-	
+
 	public String getFinalValue() {
 		return String.valueOf(this.finalValue);
 	}
-	
+
 }
