@@ -111,7 +111,12 @@ public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 		this.out2.paintImmediately(this.out2.getParent().getBounds());
 		this.out3.paintImmediately(this.out3.getParent().getBounds());
 		updateText();
-		Toolkit.getDefaultToolkit().sync();
+		try {
+			Toolkit.getDefaultToolkit().sync();
+		} catch (AWTError e) {
+			Logger.log(e);
+			throw e;
+		}
 	}
 
 	private void updateText() {
@@ -142,7 +147,7 @@ public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 	@Override
 	public void run() {
 		reset();
-		//setBorderVisibility(new int[] { 1 }, true);
+		// setBorderVisibility(new int[] { 1 }, true);
 
 		if (this.out2 instanceof ImagePanel) {
 			((ImagePanel) this.out2).setImageDisplayed(true);
@@ -220,8 +225,12 @@ public class ThreePanelPicker implements Picker, ActionListener, Serializable {
 		this.out1.paintImmediately(this.out1.getBounds());
 		this.out2.paintImmediately(this.out2.getBounds());
 		this.out3.paintImmediately(this.out3.getBounds());
-
-		Toolkit.getDefaultToolkit().sync();
+		try {
+			Toolkit.getDefaultToolkit().sync();
+		} catch (AWTError e) {
+			Logger.log(e);
+			throw e;
+		}
 	}
 
 	/**

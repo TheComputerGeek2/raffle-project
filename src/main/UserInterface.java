@@ -166,10 +166,19 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 	 *             accessed or instantiated.
 	 */
 	private static Point centerFrame(Container frame) {
-		Dimension ScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		int newX = ScreenSize.width / 2 - frame.getWidth() / 2;
-		int newY = ScreenSize.height / 2 - frame.getHeight() / 2;
-		frame.setLocation(newX, newY);
+		Dimension ScreenSize;
+		int newX = 0;
+		int newY = 0;
+		try {
+			ScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
+			newX = ScreenSize.width / 2 - frame.getWidth() / 2;
+			newY = ScreenSize.height / 2 - frame.getHeight() / 2;
+			frame.setLocation(newX, newY);
+		} catch (AWTError e) {
+			Logger.log(e);
+			throw e;
+		}
+
 		return new Point(newX, newY);
 	}
 
@@ -202,7 +211,7 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 	 * Adds the components to the frame.
 	 */
 	private void addComponents() {
-		//monitorFrame();
+		// monitorFrame();
 		addInputs();
 		addButton();
 		addOutputs();
@@ -400,6 +409,7 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 	 *             accessed or instantiated.
 	 */
 	private void pickingSequence() {
+		logInputs();
 		getInputs();
 		if (getInputs() && verifyValidInputType() && verifyValidRange()
 				&& verifyValidValues()) {
@@ -409,9 +419,19 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 		} else {
 			this.np.inputProblem();
 			this.frame.repaint();
-			Toolkit.getDefaultToolkit().sync();
+			try {
+				Toolkit.getDefaultToolkit().sync();
+			} catch (AWTError e) {
+				Logger.log(e);
+				throw e;
+			}
 		}
 		FlashManager.setActive(true);
+	}
+
+	private void logInputs() {
+		Logger.log(Logger.getDateStamp() + " Minimum input: (" + this.minimumValueInput.getText()
+				+ ") Maximum input: (" + this.maximumValueInput.getText() + ")");
 	}
 
 	/**

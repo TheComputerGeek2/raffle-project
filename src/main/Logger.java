@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.AWTError;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
@@ -48,16 +49,24 @@ public class Logger {
 	 * <p>
 	 * Logs the information provided to the file.
 	 * 
-	 * @param information
+	 * @param e
 	 *            the formatted information to save.
 	 */
-	public static void log(String information) {
+	public static void log(String e) {
 		if (!Logger.LOGGER_ACTIVE) {
 			return;
 		}
 		Logger.initialize();
-		Logger.out.println(information);
+		Logger.out.println(e);
 
+	}
+
+	public static void log(Throwable t) {
+		if (!Logger.LOGGER_ACTIVE) {
+			return;
+		}
+		Logger.initialize();
+		t.printStackTrace(Logger.out);
 	}
 
 	private static void makeLogFolder() {

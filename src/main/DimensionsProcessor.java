@@ -1,6 +1,8 @@
 package main;
 
+import java.awt.AWTError;
 import java.awt.Dimension;
+import java.awt.HeadlessException;
 import java.awt.Toolkit;
 
 public class DimensionsProcessor {
@@ -48,7 +50,13 @@ public class DimensionsProcessor {
 	 *             if GraphicsEnvironment.isHeadless() returns true.
 	 */
 	public final static double determineScale(int width, int height) {
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension screenSize;
+		try {
+			screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		} catch (AWTError | HeadlessException e) {
+			Logger.log(e);
+			throw e;
+		}
 		double widthScale = (double) screenSize.width / width;
 		double heightScale = (double) screenSize.height / height;
 		return Math.min(widthScale, heightScale);

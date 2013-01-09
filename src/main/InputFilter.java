@@ -120,8 +120,13 @@ public class InputFilter implements KeyListener, Serializable {
 	 *             accessed or instantiated.
 	 */
 	private static void beep() {
-		Toolkit.getDefaultToolkit().sync();
-		Toolkit.getDefaultToolkit().beep();
+		try {
+			Toolkit.getDefaultToolkit().sync();
+			Toolkit.getDefaultToolkit().beep();
+		} catch (AWTError e) {
+			Logger.log(e);
+			throw e;
+		}
 	}
 
 	/**

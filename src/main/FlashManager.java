@@ -27,7 +27,13 @@ public class FlashManager implements MouseListener {
 				FlashManager.respond();
 			}
 		};
-		FlashManager.timer.schedule(task, FlashManager.DELAY);
+		try {
+			FlashManager.timer.schedule(task, FlashManager.DELAY);
+		} catch (IllegalArgumentException | IllegalStateException
+				| NullPointerException e) {
+			Logger.log(e);
+			throw e;
+		}
 	}
 
 	public static void setActive(boolean isActive) {
