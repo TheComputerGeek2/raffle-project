@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
@@ -8,6 +9,8 @@ import java.io.PrintStream;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import javax.swing.JFrame;
+
 public class FrameSizeManager implements WindowListener {
 
 	public static final String CONFIG_FILE_DIRECTORY = Logger.LOG_DIRECTORY
@@ -15,8 +18,42 @@ public class FrameSizeManager implements WindowListener {
 
 	private static PrintStream out;
 
-	public FrameSizeManager() {
+	private JFrame frame;
+	
+	private Dimension defaultSize;
+	
+	public FrameSizeManager(JFrame frame) {
+		this.frame = frame;
+	}
+	
+	public void resizeFrame() {
+		SizeData data = getSizeData();
+		if (data.useDefault) {
+			return;
+		}
+		frame.setSize(data.savedWidth, data.savedHeight);
+	}
+	
+	public void setDefaultSize(Dimension defaultSize) {
+		this.defaultSize = defaultSize;
+	}
 
+	private void saveData() {
+		if (isDefaultSize()) {
+			return;
+		}
+		initializeConfigFolder();
+		initializePrintStream();
+		writeData();
+	}
+	
+	private boolean isDefaultSize() {
+		return frame.getWidth() == this.defaultSize.width && frame.getHeight() == this.defaultSize.height;
+	}
+
+	private void writeData() {
+		FrameSizeManager.out.println(this.frame.getWidth());
+		FrameSizeManager.out.println(this.frame.getHeight());
 	}
 
 	private void initializeConfigFolder() {
@@ -46,9 +83,10 @@ public class FrameSizeManager implements WindowListener {
 		} catch (FileNotFoundException e) {
 			Logger.log(Logger.getDateStamp() + " Config file not found");
 			return new SizeData();
-		} catch (IllegalStateException | NoSuchElementException
-				| NumberFormatException e) {
+		} catch (IllegalStateException | NumberFormatException e) {
 			Logger.log(e);
+			return new SizeData();
+		} catch (NoSuchElementException e) {
 			return new SizeData();
 		} finally {
 			reader.close();
@@ -69,6 +107,7 @@ public class FrameSizeManager implements WindowListener {
 
 	@Override
 	public void windowClosing(WindowEvent arg0) {
+		this.saveData();
 		// TODO Auto-generated method stub
 
 	}

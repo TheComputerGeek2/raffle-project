@@ -149,7 +149,13 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 		temp.setBorderManagers(this.managers);
 		this.np = temp;
 		FlashManager.setDisplayManager(temp);
+		FrameSizeManager fsm = new FrameSizeManager(this.frame);
+		this.frame.addWindowListener(fsm);
 		this.frame.setVisible(true);
+		fsm.setDefaultSize(this.frame.getSize());
+		fsm.resizeFrame();
+		centerFrame(this.frame);
+		
 	}
 
 	/**
@@ -428,6 +434,8 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 		}
 		FlashManager.setActive(true);
 	}
+	
+	
 
 	private void logInputs() {
 		Logger.log(Logger.getDateStamp() + " Minimum input: (" + this.minimumValueInput.getText()
