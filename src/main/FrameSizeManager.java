@@ -19,39 +19,46 @@ public class FrameSizeManager implements WindowListener {
 	private static PrintStream out;
 
 	private JFrame frame;
-	
+
 	private Dimension defaultSize;
-	
+
+	private static boolean useDefaultSize = true;
+
 	public FrameSizeManager(JFrame frame) {
 		this.frame = frame;
 	}
 	
+	public static void shouldUseDefaultSize(boolean useDefault) {
+		FrameSizeManager.useDefaultSize = useDefault;
+	}
+
 	public void resizeFrame() {
 		SizeData data = getSizeData();
 		if (data.useDefault) {
+			FrameSizeManager.useDefaultSize = true;
 			return;
 		}
-		frame.setSize(data.savedWidth, data.savedHeight);
+		this.frame.setSize(data.savedWidth, data.savedHeight);
 	}
-	
+
 	public void setDefaultSize(Dimension defaultSize) {
 		this.defaultSize = defaultSize;
 	}
 
 	private void saveData() {
-		if (isDefaultSize()) {
-			return;
-		}
 		initializeConfigFolder();
 		initializePrintStream();
 		writeData();
 	}
-	
+
 	private boolean isDefaultSize() {
-		return frame.getWidth() == this.defaultSize.width && frame.getHeight() == this.defaultSize.height;
+		return frame.getWidth() == this.defaultSize.width
+				&& frame.getHeight() == this.defaultSize.height;
 	}
 
 	private void writeData() {
+		
+		FrameSizeManager.out.println(isDefaultSize());
 		FrameSizeManager.out.println(this.frame.getWidth());
 		FrameSizeManager.out.println(this.frame.getHeight());
 	}
@@ -77,6 +84,9 @@ public class FrameSizeManager implements WindowListener {
 		try {
 			reader = new Scanner(new File(
 					FrameSizeManager.CONFIG_FILE_DIRECTORY + "config.txt"));
+			if (Boolean.parseBoolean(reader.nextLine())) {
+				return new SizeData();
+			}
 			int width = Integer.parseInt(reader.nextLine());
 			int height = Integer.parseInt(reader.nextLine());
 			return new SizeData(width, height);
