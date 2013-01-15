@@ -3,25 +3,29 @@ package main;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class RestoreDefaultSize implements KeyListener {
-	public RestoreDefaultSize() {
+import javax.swing.JFrame;
 
+public class RestoreDefaultSize implements KeyListener {
+
+	private JFrame frame;
+
+	public RestoreDefaultSize(JFrame frame) {
+		this.frame = frame;
 	}
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		if (KeyEvent.VK_F2 == arg0.getKeyCode()) {
 			FrameSizeManager.shouldUseDefaultSize(true);
+			FrameSizeManager.resizeToDefault(this.frame);
 		}
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
 		if (KeyEvent.VK_F2 == arg0.getKeyCode()) {
 			FrameSizeManager.shouldUseDefaultSize(true);
+			FrameSizeManager.resizeToDefault(this.frame);
 		}
 	}
 

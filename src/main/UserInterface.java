@@ -155,8 +155,8 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 		fsm.setDefaultSize(this.frame.getSize());
 		fsm.resizeFrame();
 		centerFrame(this.frame);
-		this.minimumValueInput.addKeyListener(new RestoreDefaultSize());
-		this.maximumValueInput.addKeyListener(new RestoreDefaultSize());
+		this.minimumValueInput.addKeyListener(new RestoreDefaultSize(this.frame));
+		this.maximumValueInput.addKeyListener(new RestoreDefaultSize(this.frame));
 		
 		
 	}

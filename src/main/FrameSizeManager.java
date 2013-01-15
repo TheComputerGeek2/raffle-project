@@ -20,15 +20,18 @@ public class FrameSizeManager implements WindowListener {
 
 	private JFrame frame;
 
-	private Dimension defaultSize;
+	private static Dimension defaultSize;
 
 	private static boolean useDefaultSize = true;
+
+	private static boolean willRestoreDefault = false;
 
 	public FrameSizeManager(JFrame frame) {
 		this.frame = frame;
 	}
-	
+
 	public static void shouldUseDefaultSize(boolean useDefault) {
+		FrameSizeManager.willRestoreDefault = useDefault;
 		FrameSizeManager.useDefaultSize = useDefault;
 	}
 
@@ -41,8 +44,12 @@ public class FrameSizeManager implements WindowListener {
 		this.frame.setSize(data.savedWidth, data.savedHeight);
 	}
 
+	public static void resizeToDefault(JFrame frame) {
+		frame.setSize(FrameSizeManager.defaultSize);
+	}
+
 	public void setDefaultSize(Dimension defaultSize) {
-		this.defaultSize = defaultSize;
+		FrameSizeManager.defaultSize = defaultSize;
 	}
 
 	private void saveData() {
@@ -52,13 +59,14 @@ public class FrameSizeManager implements WindowListener {
 	}
 
 	private boolean isDefaultSize() {
-		return frame.getWidth() == this.defaultSize.width
-				&& frame.getHeight() == this.defaultSize.height;
+		return frame.getWidth() == FrameSizeManager.defaultSize.width
+				&& frame.getHeight() == FrameSizeManager.defaultSize.height;
 	}
 
 	private void writeData() {
-		
-		FrameSizeManager.out.println(isDefaultSize());
+		FrameSizeManager.useDefaultSize = FrameSizeManager.willRestoreDefault
+				|| isDefaultSize();
+		FrameSizeManager.out.println(FrameSizeManager.useDefaultSize);
 		FrameSizeManager.out.println(this.frame.getWidth());
 		FrameSizeManager.out.println(this.frame.getHeight());
 	}
@@ -73,7 +81,6 @@ public class FrameSizeManager implements WindowListener {
 					FrameSizeManager.CONFIG_FILE_DIRECTORY + "config.txt"));
 		} catch (FileNotFoundException | SecurityException e) {
 			Logger.log(e);
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -118,7 +125,6 @@ public class FrameSizeManager implements WindowListener {
 	@Override
 	public void windowClosing(WindowEvent arg0) {
 		this.saveData();
-		// TODO Auto-generated method stub
 
 	}
 
