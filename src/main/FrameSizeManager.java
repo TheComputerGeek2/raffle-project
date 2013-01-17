@@ -64,8 +64,10 @@ public class FrameSizeManager implements WindowListener {
 	}
 
 	private void writeData() {
-		FrameSizeManager.useDefaultSize = FrameSizeManager.willRestoreDefault
-				|| isDefaultSize();
+		FrameSizeManager.useDefaultSize = /*
+										 * FrameSizeManager.willRestoreDefault
+										 * ||
+										 */isDefaultSize();
 		FrameSizeManager.out.println(FrameSizeManager.useDefaultSize);
 		FrameSizeManager.out.println(this.frame.getWidth());
 		FrameSizeManager.out.println(this.frame.getHeight());
