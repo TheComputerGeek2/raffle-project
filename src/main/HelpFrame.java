@@ -26,6 +26,7 @@ public class HelpFrame {
 	}
 
 	private void closeFrame() {
+		this.frame.setVisible(false);
 		// TODO close the help frame
 	}
 
@@ -62,5 +63,11 @@ public class HelpFrame {
 		centerOnFrame(this.mainFrame.getBounds(), HelpFrame.PERCENT_OF_WIDTH,
 				HelpFrame.PERCENT_OF_HEIGHT);
 		// TODO use the center on frame to position on the parent
+		addContent();
+		this.frame.setVisible(true);
+	}
+	
+	private void addContent() {
+		//TODO add the information to the frame
 	}
 }
