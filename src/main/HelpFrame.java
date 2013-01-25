@@ -21,6 +21,9 @@ public class HelpFrame {
 
 	private static final double PERCENT_OF_HEIGHT = 50;
 
+	private static final int WIDTH = 300;
+	private static final int HEIGHT = 200;
+
 	private Properties info;
 
 	private JTextArea area;
@@ -36,19 +39,20 @@ public class HelpFrame {
 
 	private void closeFrame() {
 		this.frame.setVisible(false);
-		// TODO close the help frame
+		this.frame.dispose();
+	}
+
+	private void centerOnFrame(Rectangle parent, int width, int height) {
+		this.frame.setSize(width, height);
+		centerOnFrame(parent);
 	}
 
 	private void centerOnFrame(Rectangle parent, double percentOfWidth,
 			double percentOfHeight) {
-		// TODO resize the help frame to the percentage of the width and height
-		// of the main frame specified
 		int width = (int) (parent.width * (percentOfWidth / 100));
 		int height = (int) (parent.height * (percentOfHeight / 100));
 		this.frame.setSize(width, height);
 		centerOnFrame(this.mainFrame.getBounds());
-
-		// TODO position the help frame to the center of the main frame
 	}
 
 	private void centerOnFrame(Rectangle parent) {
@@ -59,7 +63,7 @@ public class HelpFrame {
 			Logger.log("The height of the help frame is greater than the height of the main frame.");
 		}
 
-		int xCoordinate = (parent.height / 2) - (this.frame.getWidth() / 2)
+		int xCoordinate = (parent.width / 2) - (this.frame.getWidth() / 2)
 				+ parent.x;
 		int yCoordinate = (parent.height / 2) - (this.frame.getHeight() / 2)
 				+ parent.y;
@@ -69,32 +73,33 @@ public class HelpFrame {
 
 	private void makeFrame() {
 		this.frame = new JFrame();
-		centerOnFrame(this.mainFrame.getBounds(), HelpFrame.PERCENT_OF_WIDTH,
-				HelpFrame.PERCENT_OF_HEIGHT);
-		// TODO use the center on frame to position on the parent
+		centerOnFrame(this.mainFrame.getBounds(), HelpFrame.WIDTH,
+				HelpFrame.HEIGHT);
 		addContent();
+		this.frame.setResizable(false);
+		this.frame.setTitle("About");
 		this.frame.setVisible(true);
 	}
 
 	private void addContent() {
-		//loadProperties();
+		// loadProperties();
 		this.area = new JTextArea();
 		this.frame.add(area);
 		this.area.setLineWrap(true);
+		this.area.setWrapStyleWord(true);
 		this.area.setText(getInfo());
 		this.area.setEditable(false);
 	}
 
 	private String getInfo() {
 		String temp = "";
-		temp += Info.name + "\n";
-		temp += "developed by " + Info.developer + "\n";
+		//temp += Info.name + "\n";
+		temp += "Developed by " + Info.developer + "\n";
 		temp += "Version " + Info.version + "\n";
-		temp += "Minimum Java version "
-				+ Info.minJavaVersion + "\n";
-		temp += "Log directory " + Info.logDirectory + "\n";
-		temp += "To restore the default size: "
-				+ Info.restoreDefaultSize + "\n";
+		temp += "Minimum Java version: " + Info.minJavaVersion + "\n";
+		temp += "Log directory: " + Info.logDirectory + "\n";
+		temp += "To restore the default size: " + Info.restoreDefaultSize
+				+ "\n";
 		temp += Info.contact;
 		return temp;
 

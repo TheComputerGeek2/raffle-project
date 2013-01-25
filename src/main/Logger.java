@@ -18,7 +18,7 @@ public class Logger {
 
 	private static PrintStream out;
 
-	// TODO create a log in the H drive
+
 	// TODO create a config file and a means to enable or disable the
 	// logging
 	/*
