@@ -59,12 +59,18 @@ public class Logger {
 		Logger.out.println(e);
 
 	}
+	
+	public static void logConsole(String output, Object source) {
+		System.out.println(output);
+		log("[Console]" + "[" + Logger.getDateStamp() + "]" + "[" + source.getClass().toString() + "] " + output);
+	}
 
 	public static void log(Throwable t) {
 		if (!Logger.LOGGER_ACTIVE) {
 			return;
 		}
 		Logger.initialize();
+		Logger.out.println("[" + Logger.getDateStamp() + "]");
 		t.printStackTrace(Logger.out);
 	}
 

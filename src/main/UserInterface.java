@@ -565,7 +565,7 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		System.out.println(Messages.getString("UserInterface.6")); //$NON-NLS-1$
+		Logger.logConsole(Messages.getString("UserInterface.6"), this);
 		pickingSequence();
 		/*
 		 * if (arg0.getSource().equals(pickNumber)) { pickingSequence(); } else
@@ -582,7 +582,7 @@ public class UserInterface implements KeyListener, MouseListener, Serializable {
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		System.out.println(Messages.getString("UserInterface.7")); //$NON-NLS-1$
+		Logger.logConsole(Messages.getString("UserInterface.7"), this);
 		response(arg0.getSource(), arg0.getKeyCode());
 	}
 

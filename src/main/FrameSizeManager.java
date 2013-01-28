@@ -106,6 +106,7 @@ public class FrameSizeManager implements WindowListener {
 			Logger.log(e);
 			return new SizeData();
 		} catch (NoSuchElementException e) {
+			Logger.log("The config file appears to be malformed");
 			return new SizeData();
 		} finally {
 			reader.close();

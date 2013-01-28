@@ -40,8 +40,7 @@ public class NumberGenerator2 {
 	public void generateFinalValue() {
 		this.finalValue = this.rand.nextInt(this.maximum - this.minimum + 1)
 				+ this.minimum;
-		System.out.println("Final value selected: " + this.finalValue);
-
+		Logger.logConsole(("Final value selected: " + this.finalValue), this);
 		Logger.log(Logger.formatInformation(this.minimum, this.maximum,
 				this.finalValue));
 
@@ -58,7 +57,7 @@ public class NumberGenerator2 {
 		}
 		this.currentValue = temp;
 		this.valuesGenerated++;
-		System.out.println("Values generated: " + temp);
+		Logger.logConsole("Values generated: " + temp, this);
 		return temp;
 	}
 
